@@ -1,4 +1,4 @@
-# code_refresh
+# Code Refresher
 ***
 
 After 8 months of absence in the coding learning journey, I make this repository to `refresh my knowledge` in this matter.
