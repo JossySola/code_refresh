@@ -4,21 +4,21 @@ You can refer to the code defining your app as `implementation code`, and the co
 
 If the implementation code is named `index.js` then the corresponding test code may be named `index-test.js`.
 
-1. Testing is can also be used as part of the app's `documentation`.
-2. When functionality previosuly developed and tested stops working, you may say the _functionality regressed_.
+1. Testing can also be used as part of the app's `documentation`.
+2. When the functionality previously developed and tested stops working, you may say the _functionality regressed_.
 
 ## TESTING TYPES
 
 - Unit tests
-..- > Smallest possible unit of testable code
+..- Smallest possible unit of testable code
 - Integration tests
-..- > How units work with one another. Only the handling of incoming data is tested while the data itself remains mocked
+..- How units work with one another. Only the handling of incoming data is tested while the data itself remains mocked
 - End to end tests
-..- > _UI Layer Test or e2e_ automates user flow to test the application in the way that a real user would experience it. Also tests interactions with external services such as databases and APIs
+..- _UI Layer Test or e2e_ automates user flow to test the application in the way that a real user would experience it. Also tests interactions with external services such as databases and APIs
 
 ## SOFTWARE TESTING METHODOLOGIES
 
-- Test-driven Development (**TDD**)(_functions and classes_)
+- Test-driven Development (**TDD**) (_functions and classes_)
 - Behavior-driven Development (**BDD**)
 - Specification by Example (**SBE**)
 - Acceptance Test-driven Development (**ATDD**)
