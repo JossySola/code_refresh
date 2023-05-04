@@ -10,11 +10,11 @@ If the implementation code is named `index.js` then the corresponding test code 
 ## TESTING TYPES
 
 - Unit tests
-..- Smallest possible unit of testable code
+⋅⋅* Smallest possible unit of testable code
 - Integration tests
-..- How units work with one another. Only the handling of incoming data is tested while the data itself remains mocked
+⋅⋅* How units work with one another. Only the handling of incoming data is tested while the data itself remains mocked
 - End to end tests
-..- _UI Layer Test or e2e_ automates user flow to test the application in the way that a real user would experience it. Also tests interactions with external services such as databases and APIs
+⋅⋅* _UI Layer Test or e2e_ automates user flow to test the application in the way that a real user would experience it. Also tests interactions with external services such as databases and APIs
 
 ## SOFTWARE TESTING METHODOLOGIES
 
