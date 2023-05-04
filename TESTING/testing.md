@@ -100,4 +100,4 @@ These functions (also referred to as _hooks_) are:
 + `before(callback)` - `callback` is run before the first test
 + `after(callback)` - `callback` is run after the last test
 
-[*]: All the information written here is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**.
+##### _All the information written here is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
