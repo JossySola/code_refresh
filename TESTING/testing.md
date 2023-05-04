@@ -62,3 +62,42 @@ describe('functionName', () => {
 
 ### assert
 
+`assert.ok` is a method provided by Node.js that allows you to compare values and throw errors as needed using one function call.
+
+As a Node module, `assert` can be imported at the top of your files with
+
+```javascript
+const assert = require('assert');
+```
+
+You call `assert` functions like this:
+
+```javascript
+assert.ok(a === 3);
+```
+
+### TESTING STEPS
+
+1. **SETUP**
+    + create objects, variables, and set conditions that your test depends on
+2. **EXERCISE**
+    + execute the functionality you are testing
+3. **VERIFY**
+    + check your expectations against the result of the exercise phase. You can use the `assert` library here
+
+### TEARDOWN
+
+We often add a _teardown_ step to the end of our tests. The teardown phase makes our tests _isolated_ by resetting the environment before the next test runs. 
+
+### HOOKS
+
+The Mocha test framework provides functions that enable us to reduce repetition, simplify the scope of each test, and more finely control the execution of our tests.
+
+These functions (also referred to as _hooks_) are:
+
++ `beforeEach(callback)` - `callback` is run before each test
++ `afterEach(callback)` - `callback` is run after each test
++ `before(callback)` - `callback` is run before the first test
++ `after(callback)` - `callback` is run after the last test
+
+[*]: All the information written here is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**.
