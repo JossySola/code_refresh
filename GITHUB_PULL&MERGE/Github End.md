@@ -1,4 +1,4 @@
-# Figure out connecting local with Github
+git status# Figure out connecting local with Github
 
 ## Protect Main Branch in Github
 1. Settings
