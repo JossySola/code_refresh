@@ -100,4 +100,20 @@ These functions (also referred to as _hooks_) are:
 + `before(callback)` - `callback` is run before the first test
 + `after(callback)` - `callback` is run after the last test
 
-##### _All the information written here is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
+##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
+
+### STEPS FOLLOWED IN VS CODE
+
+1. Filled out the JS file
+2. Filled out the test file
+3. In the `bash` terminal, I went to the working directory
+    + `npm init`
+    + _Fill out the prompts for the package.json and confirm_
+    + `npm install mocha -D`
+4. In `package.json` in the test property add the directory after the mocha word:
+    ```javascript
+    "scripts": {
+    "test": "mocha 'index-test.js'"
+    }
+    ```
+5. `npm test`
