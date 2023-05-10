@@ -113,7 +113,7 @@ These functions (also referred to as _hooks_) are:
 4. In `package.json` in the test property add the directory after the mocha word:
     ```javascript
     "scripts": {
-    "test": "mocha 'index-test.js'"
+        "test": "mocha 'index-test.js'"
     }
     ```
 5. `npm test`
