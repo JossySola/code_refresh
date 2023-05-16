@@ -6,6 +6,12 @@ describe('CLASS PERSON', () => {
     before(() => {
         person = new Person('Albert Einstein',144,12,'Physics');
     });
+    afterEach(() => {
+        person.setName = 'Albert Einstein';
+        person.setAge = 144;
+        person.setGrade = 12;
+        person.setSubject = 'Physics';
+    })
 
     it('returns a Person instance', () => {
         // SETUP
@@ -90,13 +96,43 @@ describe('CLASS PERSON', () => {
             const grade = 11;
             const subject = 'Cosmology';
             // EXERCISE
-            const resultName = person.setName = 'Stephen Hawking';
-            const resultAge = person.setAge = 81;
-            const resultGrade = person.setGrade = 11;
-            const resultSubject = person.setSubject = 'Cosmology';
+            person.setName = 'Stephen Hawking';
+            person.setAge = 81;
+            person.setGrade = 11;
+            person.setSubject = 'Cosmology';
+
+            const resultName = person.getName;
+            const resultAge = person.getAge;
+            const resultGrade = person.getGrade;
+            const resultSubject = person.getSubject;
 
             // VERIFY
             if(name === resultName && age === resultAge && grade === resultGrade && subject === resultSubject) {
+                assert.ok(true);
+            } else {
+                assert.ok(false);
+            }
+        });
+    });
+    describe('Edge case', () => {
+        it('Setters do not modify properties if the input type is other than the expected', () => {
+            // SETUP
+            const expectedName = 'Albert Einstein';
+            const expectedAge = 144;
+            const expectedGrade = 12;
+            const expectedSubject = 'Physics';
+            // EXERCISE
+            person.setName = 0;
+            person.setAge = '81';
+            person.setGrade = '11';
+            person.setSubject = undefined;
+
+            const resultName = person.getName;
+            const resultAge = person.getAge;
+            const resultGrade = person.getGrade;
+            const resultSubject = person.getSubject;
+            // VERIFY
+            if(expectedName === resultName && expectedAge === resultAge && expectedGrade === resultGrade && expectedSubject === resultSubject) {
                 assert.ok(true);
             } else {
                 assert.ok(false);
@@ -110,6 +146,13 @@ describe('SUBCLASS STUDENT', () => {
     before(() => {
         student = new Student('Dylan Brown',17,11,'Economics');
     });
+    afterEach(() => {
+        student.setName = 'Dylan Brown';
+        student.setAge = 17;
+        student.setGrade = 11;
+        student.setSubject = 'Economics';
+    })
+
     it('returns a Student instance', () => {
         // SETUP
         const expectedResult = true;
@@ -153,9 +196,38 @@ describe('SUBCLASS STUDENT', () => {
             // SETUP
             const expected = 2.2;
             // EXERCISE
-            const result = student.setGPA = 2.2;
+            student.setGPA = 2.2;
+            const result = student.getGPA;
             // VERIFY
             assert.ok(expected === result);
+        });
+    });
+    describe('Edge case', () => {
+        it('Setters do not modify properties if the input type is other than the expected', () => {
+            // SETUP
+            const expectedName = 'Dylan Brown';
+            const expectedAge = 17;
+            const expectedGrade = 11;
+            const expectedSubject = 'Economics';
+            const expectedGPA = 2.2; // set in prior test
+            // EXERCISE
+            student.setName = 0;
+            student.setAge = false;
+            student.setGrade = '11';
+            student.setSubject = undefined;
+            student.setGPA = 'approved';
+
+            const resultName = student.getName;
+            const resultAge = student.getAge;
+            const resultGrade = student.getGrade;
+            const resultSubject = student.getSubject;
+            const resultGPA = student.getGPA;
+            // VERIFY
+            if(expectedName === resultName && expectedAge === resultAge && expectedGrade === resultGrade && expectedSubject === resultSubject && expectedGPA === resultGPA) {
+                assert.ok(true);
+            } else {
+                assert.ok(false);
+            }
         });
     });
 });
@@ -165,6 +237,13 @@ describe('SUBCLASS TEACHER', () => {
     before(() => {
         teacher = new Teacher('Gabriela Deyes',35,6,'Algebra');
     });
+    afterEach(() => {
+        teacher.setName = 'Gabriela Deyes';
+        teacher.setAge = 35;
+        teacher.setGrade = 6;
+        teacher.setSubject = 'Algebra';
+    })
+
     it('returns a Student instance', () => {
         // SETUP
         const expectedResult = true;
@@ -208,9 +287,39 @@ describe('SUBCLASS TEACHER', () => {
             // SETUP
             const expected = 'Chemistry';
             // EXERCISE
-            const result = teacher.setGPA = 'Chemistry';
+            teacher.setStudies = 'Chemistry';
+
+            const result = teacher.getStudies;
             // VERIFY
             assert.ok(expected === result);
+        });
+    });
+    describe('Edge case', () => {
+        it('Setters do not modify properties if the input type is other than the expected', () => {
+            // SETUP
+            const expectedName = 'Gabriela Deyes';
+            const expectedAge = 35;
+            const expectedGrade = 6;
+            const expectedSubject = 'Algebra';
+            const expectedStudies = 'Chemistry'; // set in prior test
+            // EXERCISE
+            teacher.setName = 0;
+            teacher.setAge = false;
+            teacher.setGrade = '11';
+            teacher.setSubject = undefined;
+            teacher.setStudies = [];
+
+            const resultName = teacher.getName;
+            const resultAge = teacher.getAge;
+            const resultGrade = teacher.getGrade;
+            const resultSubject = teacher.getSubject;
+            const resultStudies = teacher.getStudies;
+            // VERIFY
+            if(expectedName === resultName && expectedAge === resultAge && expectedGrade === resultGrade && expectedSubject === resultSubject && expectedStudies === resultStudies) {
+                assert.ok(true);
+            } else {
+                assert.ok(false);
+            }
         });
     });
 });
