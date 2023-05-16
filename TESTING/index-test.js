@@ -1,7 +1,7 @@
 import assert from "assert";
 import {Person, Student, Teacher} from "./index.js";
 
-describe('class Person', () => {
+describe('CLASS PERSON', () => {
     let person;
     before(() => {
         person = new Person('Albert Einstein',144,12,'Physics');
@@ -105,7 +105,112 @@ describe('class Person', () => {
     });
 });
 
-//let student;
-//let teacher;
-//student = new Student('Dylan Brown',17,11,'Economics');
-//teacher = new Teacher('Gabriela Deyes',35,6,'Algebra');
+describe('SUBCLASS STUDENT', () => {
+    let student;
+    before(() => {
+        student = new Student('Dylan Brown',17,11,'Economics');
+    });
+    it('returns a Student instance', () => {
+        // SETUP
+        const expectedResult = true;
+        // EXERCISE
+        const result = student instanceof Student;
+        // VERIFY
+        assert.ok(expectedResult === result);
+    });
+    it('extends from Person', () => {
+        // SETUP
+        const expectedResult = true;
+        // EXERCISE
+        const result = student instanceof Person;
+        // VERIFY
+        assert.ok(expectedResult === result);
+    });
+    describe('Getters return the correct value of the properties:', () => {
+        it('Name, Age, Grade, Subject, GPA', () => {
+            // SETUP
+            const expectedName = 'Dylan Brown';
+            const expectedAge = 17;
+            const expectedGrade = 11;
+            const expectedSubject = 'Economics';
+            const expectedGPA = 0;
+            // EXERCISE
+            const name = student.getName;
+            const age = student.getAge;
+            const grade = student.getGrade;
+            const subject = student.getSubject;
+            const gpa = student.getGPA;
+            // VERIFY
+            if(name === expectedName && age === expectedAge && grade === expectedGrade && subject === expectedSubject && gpa === expectedGPA) {
+                assert.ok(true);
+            } else {
+                assert.ok(false);
+            }
+        });
+    });
+    describe('Student setter', () => {
+        it('setGPA()', () => {
+            // SETUP
+            const expected = 2.2;
+            // EXERCISE
+            const result = student.setGPA = 2.2;
+            // VERIFY
+            assert.ok(expected === result);
+        });
+    });
+});
+
+describe('SUBCLASS TEACHER', () => {
+    let teacher;
+    before(() => {
+        teacher = new Teacher('Gabriela Deyes',35,6,'Algebra');
+    });
+    it('returns a Student instance', () => {
+        // SETUP
+        const expectedResult = true;
+        // EXERCISE
+        const result = teacher instanceof Teacher;
+        // VERIFY
+        assert.ok(expectedResult === result);
+    });
+    it('extends from Person', () => {
+        // SETUP
+        const expectedResult = true;
+        // EXERCISE
+        const result = teacher instanceof Person;
+        // VERIFY
+        assert.ok(expectedResult === result);
+    });
+    describe('Getters return the correct value of the properties:', () => {
+        it('Name, Age, Grade, Subject, Studies', () => {
+            // SETUP
+            const expectedName = 'Gabriela Deyes';
+            const expectedAge = 35;
+            const expectedGrade = 6;
+            const expectedSubject = 'Algebra';
+            const expectedStudies = '';
+            // EXERCISE
+            const name = teacher.getName;
+            const age = teacher.getAge;
+            const grade = teacher.getGrade;
+            const subject = teacher.getSubject;
+            const studies = teacher.getStudies;
+            // VERIFY
+            if(name === expectedName && age === expectedAge && grade === expectedGrade && subject === expectedSubject && studies === expectedStudies) {
+                assert.ok(true);
+            } else {
+                assert.ok(false);
+            }
+        });
+    });
+    describe('Teacher setter', () => {
+        it('setStudies()', () => {
+            // SETUP
+            const expected = 'Chemistry';
+            // EXERCISE
+            const result = teacher.setGPA = 'Chemistry';
+            // VERIFY
+            assert.ok(expected === result);
+        });
+    });
+});
