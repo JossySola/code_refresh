@@ -8,6 +8,8 @@ Taking in consideration some `specific concepts & technologies`, I'm going to be
 + **Git** (_commands_)
 + **Github** (_pull requests & coding flow_)
 + **Advanced JavaScript** (_Classes, Modules, Objects_)
-+ **Testing** (_Mocha & Chai_)
-+ **Async JavaScript and HTTP Requests**
++ **Testing** (_Mocha_)
++ **Async JavaScript and Promises**
 + **React & Redux** (_probably going to practice in separate repositories_)
++ **Linear Data Structures**
++ **Complex Data Structures**
