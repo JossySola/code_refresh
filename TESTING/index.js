@@ -43,14 +43,14 @@ class Person {
         if(typeof age === 'number') {
             this.age = age;
         } else {
-            return 'NaN';
+            return NaN;
         }
     }
     set setGrade(grade) {
         if(typeof grade === 'number') {
             this.grade = grade;
         } else {
-            return 'NaN';
+            return NaN;
         }
     }
     set setSubject(subject) {
@@ -82,7 +82,7 @@ class Student extends Person {
         if(typeof gpa === 'number') {
             this.gpa = gpa;
         } else {
-            return 'NaN';
+            return NaN;
         }
     }
 }
