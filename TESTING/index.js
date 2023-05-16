@@ -35,29 +35,21 @@ class Person {
     set setName(name) {
         if(typeof name === 'string') {
             this.name = name;
-        } else {
-            return 'Not a string';
         }
     }
     set setAge(age) {
         if(typeof age === 'number') {
             this.age = age;
-        } else {
-            return NaN;
         }
     }
     set setGrade(grade) {
         if(typeof grade === 'number') {
             this.grade = grade;
-        } else {
-            return NaN;
         }
     }
     set setSubject(subject) {
         if(typeof subject === 'string') {
             this.subject = subject;
-        } else {
-            return 'Not a string';
         }
     }
 
@@ -81,8 +73,6 @@ class Student extends Person {
     set setGPA(gpa) {
         if(typeof gpa === 'number') {
             this.gpa = gpa;
-        } else {
-            return NaN;
         }
     }
 }
@@ -100,8 +90,6 @@ class Teacher extends Person {
     set setStudies(studies) {
         if(typeof studies === 'string') {
             this.studies = studies;
-        } else {
-            return 'Not a string';
         }
     }
 }
