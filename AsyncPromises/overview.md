@@ -29,11 +29,11 @@ Since JavaScript is single-threaded, as we saw in the **for** loop example, we'l
 
 ### JavaScript Engine
 
-#### Data Structures
+### Data Structures
 
 | The Heap                                           | Call Stack                                                                                                                      | Event Queue |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| Stores **objects and variables** in use, unordered | Tracks function currently being run (current execution context: lexical and variable environment) (Last In, First Out **LIFO**) | (First In, First Out **FIFO**) List of messages (functions) waiting to be processed and handled **back into the stack** |
+| -------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------------------: | ----: |
+| Stores **objects and variables** in use, unordered | Tracks function currently being run (current execution context: lexical and variable environment) (Last In, First Out **LIFO**) | (First In, First Out **FIFO**) List of messages (functions) waiting to be processed and handled **back into the stack** when the stack is cleared out |
 
 ![Event Loop Diagram](https://static-assets.codecademy.com/Courses/Learn-JavaScript/Event-Loop-and-Concurrency/JavaScript-Engine-Diagram.png?_gl=1*1yqf88z*_ga*MjIxNzY1NjQ5LjE2NDA4OTQ1MjA.*_ga_3LRZM6TM9L*MTY4NDM3NzcwOC41MTMuMS4xNjg0Mzc3NzIxLjQ3LjAuMA.. "Event Loop Diagram")
 
