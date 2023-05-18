@@ -28,11 +28,13 @@ Since JavaScript is single-threaded, as we saw in the **for** loop example, we'l
 ## WHAT IS THE EVENT LOOP?
 
 | JavaScript Engine                                              |
+| -------------------------------------------------------------- |
 | Data Structures                                                |
+| -------------------------------------------------------------- |
 | The Heap                 | Call Stack                          |
 | ------------------------ | ----------------------------------- |
 | Stores **objects and variables** in use, unordered | Tracks function currently being run (current execution context: lexical and variable environment) (Last In, First Out **LIFO**) |
-
+| -------------------------------------------------------------- |
 | Event Queue                                                    |
 | -------------------------------------------------------------- |
 | (First In, First Out **FIFO**) List of messages (functions) waiting to be processed and handled **back into the stack** |
