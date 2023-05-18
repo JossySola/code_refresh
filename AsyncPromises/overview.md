@@ -15,6 +15,7 @@ The ability to execute asynchronous code depends on the number of `threads` that
 A single thread could work for a synchronous task like building a house. However, in our cake baking example, our threads would have to look like this:
 
 > Thread 1: preheat oven
+
 > Thread 2: prepare ingredients -> bake cake
 
 JavaScript is a _single-threaded_ language, which means that two statements can't be executed simultaneously. For example, if you have a **for** loop that takes a while to process, it'll have to finish executing before the rest of your code runs. That results in **blocking code**.
@@ -28,11 +29,14 @@ Since JavaScript is single-threaded, as we saw in the **for** loop example, we'l
 
 | JavaScript Engine                                              |
 | ---------------------------------------------------------------|
+
 | Data Structures                                                |
 | -------------------------------------------------------------- |
+
 | The Heap                 | Call Stack                          |
 | ------------------------ | ----------------------------------- |
 | Stores **objects and variables** in use unordered | Tracks function currently being run (current execution context **--** lexical and variable environment) (Last In, First Out **LIFO**) |
+
 | Event Queue                                                    |
 | -------------------------------------------------------------- |
 | (First In, First Out **FIFO**) List of messages (functions) waiting to be processed and handled **back into the stack** |
