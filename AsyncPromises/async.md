@@ -38,3 +38,25 @@ Since JavaScript is single-threaded, as we saw in the **for** loop example, we'l
 ![Event Loop Diagram](https://static-assets.codecademy.com/Courses/Learn-JavaScript/Event-Loop-and-Concurrency/JavaScript-Engine-Diagram.png?_gl=1*1yqf88z*_ga*MjIxNzY1NjQ5LjE2NDA4OTQ1MjA.*_ga_3LRZM6TM9L*MTY4NDM3NzcwOC41MTMuMS4xNjg0Mzc3NzIxLjQ3LjAuMA.. "Event Loop Diagram")
 
 In the Call Stack, when you invoke a function, a `frame` is added to the stack. Frames **connect that function's arguments and local variables from the heap**. 
+
+### ASYNCHRONOUS CALLBACKS
+
+One common example of asynchronicity in JavaScript is the use of _asynchronous callbacks_. This is a type of callback function that executes after a specific condition is met and runs concurrently to any other code currently running. 
+
+```javascript
+easterEgg.addEventListener('click', () => {
+    console.log('Up, Up, Down, Down, Left, Right, Left, Right, B, A');
+});
+```
+
+In the code above, the function passed as the second argument of **.addEventListener()** is an asynchronous callback -- this function doesn't execute until the **easterEgg** is clicked.
+
+### BUILT-IN JAVASCRIPT FUNCTIONS
+
+In addition to asynchronous callbacks, JavaScript provides a handful of build-in functions that can perform tasks asynchronously.
+
++ **setTimeout()**
++ **setInterval()**
+
+
+##### _All the information written and images shown above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
