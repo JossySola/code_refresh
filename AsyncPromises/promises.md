@@ -17,4 +17,4 @@ We refer to a promise as _settled_ if it is no longer pending -- it is either fu
 
 
 
-##### _All the information written and images shown above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
+##### _All the information written and images shown above are taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
