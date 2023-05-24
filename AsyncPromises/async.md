@@ -59,4 +59,4 @@ In addition to asynchronous callbacks, JavaScript provides a handful of build-in
 + **setInterval()**
 
 
-##### _All the information written and images shown above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
+##### _All the information written and images shown above are taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
