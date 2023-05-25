@@ -45,4 +45,69 @@ The initial state of an asynchronous promise is `pending`, but we have a guarant
 
 One important feature of `.then()` is that it always returns a promise.
 
+```javascript
+let prom = new Promise((resolve, reject) => {
+    let num = Math.random();
+    if(num < .5) {
+        resolve('Yay!');
+    } else {
+        reject('Oh no!');
+    }
+});
+
+const handleSuccess = (resolvedValue) => {
+    console.log(resolvedValue);
+};
+const handleFailure = (rejectionReason) => {
+    console.log(rejectionReason);
+};
+
+prom.then(handleSuccess, handleFailure);
+```
+
+## USING catch() WITH PROMISES
+
+One way to write cleaner code is to follow a principle called *separation of concerns*, organizing code into distinct sections each handling a specific task.
+
+The `.catch()` function takes only one argument, `onRejected`. In the case of a rejected promise, this failure handler will be invoked with the reason for rejection. Using `.catch()` accomplishes the same thing as using a `.then()` with only a failure handler.
+
+```javascript
+prom
+    .then((resolvedValue) => {
+        console.log(resolvedValue);
+    })
+    .catch((rejectionReason) => {
+        console.log(rejectionReason);
+    });
+```
+
+## CHAINING MULTIPLE PROMISES
+
+One common pattern we'll see with asynchronous programming is multiple operations which depend on each other to execute or that must be executed in a certain order. We might make one request to a database and use the data returned to us to make another request and so on.
+
+This process of chaining promises together is called *composition*.
+
+```javascript
+firstPromiseFunction()
+.then((firstResolveVal) => {
+    return secondPromiseFunction(firstResolveVal);
+})
+.then((secondResolveVal) => {
+    console.log(secondResolveVal);
+});
+```
+
+## USING Promise.all()
+
+When done correctly, promise composition is a great way to handle situations where asynchronous operations depend on each other or execution order matters. What if we're dealing with multiple promises, but we don't care about the order?
+
+To maximize efficiency we should use *concurrency*, multiple asynchronous operations happening together. With promises, we can do this with the function `Promise.all()`.
+
+`Promise.all()` accepts an array of promises as its argument and returns a single promise.
+That single promise will settle in one of two ways:
+
++ If every promise in the argument array resolves, the single promise returned from `Promise.all()` will resolve with an array containing the resolve value from each promise in the argument array.
++ If any promise from the argument array rejects, the single promise returned from `Promise.all()` will immediately reject with the reason that promise rejected. This behavior is sometimes referred to as *failing fast*.
+
+
 ##### _All the information written and images shown above are taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
