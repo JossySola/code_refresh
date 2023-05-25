@@ -14,7 +14,35 @@ We refer to a promise as _settled_ if it is no longer pending -- it is either fu
 
 ![Promises Analogy](https://content.codecademy.com/courses/learn-javascript-promises/Art-346-01.svg "Promises Analogy")
 
+All promises eventually settle, enabling us to write logic for what to do if the promise fulfills or if it rejects.
 
+## CONSTRUCTING A PROMISE OBJECT
 
+```javascript
+const executorFunction = (resolve, reject) => { };
+const myFirstPromise = new Promise(executorFunction);
+```
+
+The `Promise` constructor method takes a function parameter called the _executor function_ which runs automatically when the constructor is called. The executor function generally starts an asynchronous operation and dictates how the promise should be settled.
+
+The executor function has two function parameters, usually referred to as the `resolve()` and `reject()` functions. The `resolve()` and `reject()` functions aren't defined by the programmer. When the `Promise` constructor runs, JavaScript will pass **its own** `resolve()` and `reject()` functions into the executor function.
+
++ `resolve` is a function with one argument. Under the hood, if invoked, `resolve()` will change the promise's status from `pending` to `fulfilled`, and the promise's resolved value will be set to the argument passed into `resolve()`.
++ `reject` is a function that takes a reason or error as an argument. Uner the hood, if invoked, `reject()` will change the promise's status from `pending` to `rejected`, and the promise's rejection reason will be set to the argument passed into `reject()`.
+
+Rather than just constructing promises, you'll be handling `Promise objects` returned to you as the result of an asynchronous operation. Knowing how to _consume_, or use, promises will be key.
+
+## CONSUMING PROMISES
+
+The initial state of an asynchronous promise is `pending`, but we have a guarantee that it will settle. How do we tell the computer what should happen then? Promise objects come with an aptly name `.then()` method. It allows us to say, "I have a promise, when it settles, **then** here's what I want to happen..."
+
+![Consuming Promises Analogy](https://content.codecademy.com/courses/updated_images/Art-347_v1_Updated_1-01.svg "Consuming Promises Analogy")
+
+`.then()` is a higher-order function -- it takes two callback functions as arguments. We refer to these callbacks as _handlers_. When the promise settles, the appropriate handler will be invoked with that settled value.
+
++ The first handler, sometimes called `onFulfilled`, is a success handler, and it should contain the logic for the promise resolving.
++ The second handler, sometimes called `onRejected`, is a failure handler, and it should contain the logic for the promise rejecting.
+
+One important feature of `.then()` is that it always returns a promise.
 
 ##### _All the information written and images shown above are taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
