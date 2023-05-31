@@ -5,7 +5,7 @@
 
 #### CALLBACKS
 
-A callback is a function that is passed inside another function, and then called inside to perform a task.
+A callback is a function that is passed inside another function, and then called in that function to perform a task.
 
 ```javascript
 console.log('fired first');
