@@ -1,8 +1,38 @@
 # ASYNC-AWAIT, HTTP REQUESTS & PROMISES II
 
+***
+### ASYNCHRONOUS BEFORE ES6
+
+#### CALLBACKS
+
+A callback is a function that is passed inside another function, and then called inside to perform a task.
+
+```javascript
+console.log('fired first');
+console.log('fired second');
+
+setTimeout(() => {
+    console.log('fired third');
+}, 2000);
+
+console.log('fired last');
+/*
+Prints:
+fired first
+fired second
+fired last
+fired third
+*/
+```
+
+Imagine it being carried off to be executed in some separate part of the browser, while the other instructions continue executing. After two seconds, the results of the function are then returned.
+
+Sometimes, developers have to make multiple calls to different sources in their code. In order, to make these calls, callbacks are being nested until the become very hard to read or maintain. This is referred to as **Callback Hell** or the classic **Callback Pyramid of Doom**.
+***
+
 ## PROMISES
 
-`Promises` is how modern JavaScript handles asynchronicity, introduced with ES6.
+`Promises` is how modern JavaScript handles asynchronicity, **introduced with ES6**.
 
 `Promises` are `objects that represent the` eventual `outcome` of an asynchronous operation. A `Promise` object can be in one of three states:
 
