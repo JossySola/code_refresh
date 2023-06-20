@@ -2,7 +2,7 @@
 
 ## Constructing an **Error**
 
-JavaScript errors are objects that have a **name and message** property (*eg: ReferenceError: myVariable is not defined*). **Built-in errors** alert us about common mistakes in our code (*Runtime Errors: `ReferenceError`, `TypeError`*). But, what if we need an erroor message that isn't covered by the built-in errors? 
+JavaScript errors are objects that have a **name and message** property (*eg: ReferenceError: myVariable is not defined*). **Built-in errors** alert us about common mistakes in our code (*Runtime Errors: `ReferenceError`, `TypeError`*). But, what if we need an error message that isn't covered by the built-in errors? 
 
 The `Error` function lets us make our own **error object** with a message that is unique to our program!
 
