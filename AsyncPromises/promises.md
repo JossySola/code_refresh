@@ -141,3 +141,8 @@ That single promise will settle in one of two ways:
 
 
 ##### _All the information written and images shown above are taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
+
+
+![Consuming Promises Analogy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png "Consuming Promises Analogy")
+
+![Promises graph from MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png "Promise visual graph from MDN")
