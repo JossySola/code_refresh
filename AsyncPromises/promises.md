@@ -58,7 +58,7 @@ The `Promise` constructor method takes a function parameter called the _executor
 The executor function has two function parameters, usually referred to as the `resolve()` and `reject()` functions. The `resolve()` and `reject()` functions aren't defined by the programmer. When the `Promise` constructor runs, JavaScript will pass **its own** `resolve()` and `reject()` functions into the executor function.
 
 + `resolve` is a function with one argument. Under the hood, if invoked, `resolve()` will change the promise's status from `pending` to `fulfilled`, and the promise's resolved value will be set to the argument passed into `resolve()`.
-+ `reject` is a function that takes a reason or error as an argument. Uner the hood, if invoked, `reject()` will change the promise's status from `pending` to `rejected`, and the promise's rejection reason will be set to the argument passed into `reject()`.
++ `reject` is a function that takes a reason or error as an argument. Under the hood, if invoked, `reject()` will change the promise's status from `pending` to `rejected`, and the promise's rejection reason will be set to the argument passed into `reject()`.
 
 Rather than just constructing promises, you'll be handling `Promise objects` returned to you as the result of an asynchronous operation. Knowing how to _consume_, or use, promises will be key.
 
