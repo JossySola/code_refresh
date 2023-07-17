@@ -20,8 +20,11 @@ options.addEventListener("change", () => {
     errorM.setAttribute("value","");
 
     if(options.value === "rejected") {
-        let sample = new Promise((resolve, reject) => {
+        // MAIN PROMISE
+        new Promise((resolve, reject) => {
+            // RESPONSE MOCKUP
             const response = false;
+            // RESOLVE & REJECT CONDITION
             if(response === true) {
                 value.setAttribute("value", `Resolved value: 200`);
                 resolve(200);
@@ -30,7 +33,7 @@ options.addEventListener("change", () => {
             }
         })
         .then((result) => {
-            // RESULT IS THE VALUE OF THE PRIOR PROMISE
+            // RESULT IS THE ARGUMENT GIVEN TO RESOLVE()
             const message = `${result} -> POST: ADD ENTRY`;
             input.setAttribute("value", `First Promise (input): ${result}`);
             newPromise.setAttribute("value", `Second Promise (output): ${message}`);
@@ -38,7 +41,7 @@ options.addEventListener("change", () => {
             return message;
         })
         .then((newResult) => {
-            // NEWRESULT IS THE VALUE OF THE PRIOR PROMISE
+            // NEWRESULT IS THE VALUE OF THE PRIOR RETURNED PROMISE
             const newMessage = `${newResult} -> 201: CREATED`;
             secInput.setAttribute("value", `Second Promise (input): ${newResult}`);
             thirdPromise.setAttribute("value", `Third Promise (output): ${newMessage}`);
@@ -52,8 +55,11 @@ options.addEventListener("change", () => {
             console.error(error);
         })
     } else if(options.value === "fulfilled") {
-        let sample = new Promise((resolve, reject) => {
-            const response = true;
+        // MAIN PROMISE
+        new Promise((resolve, reject) => {
+            // RESPONSE MOCKUP
+            const response = false;
+            // RESOLVE & REJECT CONDITION
             if(response === true) {
                 value.setAttribute("value", `Resolved value: 200`);
                 resolve(200);
@@ -62,7 +68,7 @@ options.addEventListener("change", () => {
             }
         })
         .then((result) => {
-            // RESULT IS THE VALUE OF THE PRIOR PROMISE
+            // RESULT IS THE ARGUMENT GIVEN TO RESOLVE()
             const message = `${result} -> POST: ADD ENTRY`;
             input.setAttribute("value", `First Promise (input): ${result}`);
             newPromise.setAttribute("value", `Second Promise (output): ${message}`);
@@ -70,7 +76,7 @@ options.addEventListener("change", () => {
             return message;
         })
         .then((newResult) => {
-            // NEWRESULT IS THE VALUE OF THE PRIOR PROMISE
+            // NEWRESULT IS THE VALUE OF THE PRIOR RETURNED PROMISE
             const newMessage = `${newResult} -> 201: CREATED`;
             secInput.setAttribute("value", `Second Promise (input): ${newResult}`);
             thirdPromise.setAttribute("value", `Third Promise (output): ${newMessage}`);
