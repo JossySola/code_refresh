@@ -58,7 +58,7 @@ options.addEventListener("change", () => {
         // MAIN PROMISE
         new Promise((resolve, reject) => {
             // RESPONSE MOCKUP
-            const response = false;
+            const response = true;
             // RESOLVE & REJECT CONDITION
             if(response === true) {
                 value.setAttribute("value", `Resolved value: 200`);
