@@ -31,7 +31,7 @@ options.addEventListener("change", () => {
         })
         .then((result) => {
             // RESULT IS THE VALUE OF THE PRIOR PROMISE
-            const message = `${result}, POST: ADD ENTRY`;
+            const message = `${result} -> POST: ADD ENTRY`;
             input.setAttribute("value", `First Promise (input): ${result}`);
             newPromise.setAttribute("value", `Second Promise (output): ${message}`);
             // ALWAYS RETURN THE NEW PROMISE
@@ -39,7 +39,7 @@ options.addEventListener("change", () => {
         })
         .then((newResult) => {
             // NEWRESULT IS THE VALUE OF THE PRIOR PROMISE
-            const newMessage = `${newResult} 201: CREATED`;
+            const newMessage = `${newResult} -> 201: CREATED`;
             secInput.setAttribute("value", `Second Promise (input): ${newResult}`);
             thirdPromise.setAttribute("value", `Third Promise (output): ${newMessage}`);
             // ALWAYS RETURN THE NEW PROMISE
@@ -63,7 +63,7 @@ options.addEventListener("change", () => {
         })
         .then((result) => {
             // RESULT IS THE VALUE OF THE PRIOR PROMISE
-            const message = `${result}, POST: ADD ENTRY`;
+            const message = `${result} -> POST: ADD ENTRY`;
             input.setAttribute("value", `First Promise (input): ${result}`);
             newPromise.setAttribute("value", `Second Promise (output): ${message}`);
             // ALWAYS RETURN THE NEW PROMISE
@@ -71,7 +71,7 @@ options.addEventListener("change", () => {
         })
         .then((newResult) => {
             // NEWRESULT IS THE VALUE OF THE PRIOR PROMISE
-            const newMessage = `${newResult} 201: CREATED`;
+            const newMessage = `${newResult} -> 201: CREATED`;
             secInput.setAttribute("value", `Second Promise (input): ${newResult}`);
             thirdPromise.setAttribute("value", `Third Promise (output): ${newMessage}`);
             // ALWAYS RETURN THE NEW PROMISE
