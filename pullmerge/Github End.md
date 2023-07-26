@@ -22,3 +22,10 @@
 4. Clicking in the button *Compare & pull request* directs to the section _Open a pull request_. 
 5. Going to the main **Code** section and clicking in the **branches** button, the `new_branch` branch is shown. Entering into the `new_branch`, the commit made in the first step is shown in Github.
 ---
+![GIT CHEAT SHEET](https://education.github.com/git-cheat-sheet-education.pdf "GIT CHEAT SHEET")
+
+![GIT CHEAT SHEET GITLAB](https://about.gitlab.com/images/press/git-cheat-sheet.pdf "GIT CHEAT SHEET GITLAB")
+
+![GIT DATACAMP](https://images.datacamp.com/image/upload/v1656573882/Marketing/Blog/git_cheat_sheet.pdf "GIT DATACAMP")
+
+![GIT CODECADEMY](https://www.codecademy.com/learn/learn-git/modules/learn-git-git-workflow-u/cheatsheet "GIT CODECADEMY")
