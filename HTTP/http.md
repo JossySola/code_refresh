@@ -15,4 +15,5 @@ The transfer of resources happens using TCP (**Transmission Control Protocol**).
 5. It will initiate a GET request to the server which contains the IP address of the host and optionally a data payload. The GET request contains the following text:
 
 > GET / HTTP/1.1
+
 > Host: www.codecademy.com
