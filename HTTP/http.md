@@ -17,3 +17,5 @@ The transfer of resources happens using TCP (**Transmission Control Protocol**).
 > GET / HTTP/1.1
 
 > Host: www.codecademy.com
+
+##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._

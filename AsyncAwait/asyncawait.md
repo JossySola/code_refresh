@@ -140,3 +140,4 @@ async function asyncPromAll() {
     }
 }
 ```
+##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
