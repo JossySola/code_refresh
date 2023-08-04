@@ -25,11 +25,14 @@ Components can be managed, updated, and reused without affecting the system as a
 ## Communication between Client and Server
 
 1. `Client Request`
+
     1.1 HTTP verb (*GET, POST, PUT, DELETE*)
     1.2 Header (*type of content, MIME Types*)
     1.3 Path to a resource
     1.4 Optional message body containing data
+
 2. `Sending Response`
+
     2.1 Content Type(*content-type*)
     2.2 Response Code 
         2.2.1 **200 (OK)**
