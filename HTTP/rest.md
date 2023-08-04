@@ -26,22 +26,22 @@ Components can be managed, updated, and reused without affecting the system as a
 
 1. `Client Request`
 
-    1.1 HTTP verb (*GET, POST, PUT, DELETE*)
-    1.2 Header (*type of content, MIME Types*)
-    1.3 Path to a resource
-    1.4 Optional message body containing data
+    - HTTP verb (*GET, POST, PUT, DELETE*)
+    - Header (*type of content, MIME Types*)
+    - Path to a resource
+    - Optional message body containing data
 
 2. `Sending Response`
 
-    2.1 Content Type(*content-type*)
-    2.2 Response Code 
-        2.2.1 **200 (OK)**
-        2.2.2 **201 (CREATED)**
-        2.2.3 **204 (NO CONTENT)**
-        2.2.4 **400 (BAD REQUEST)**
-        2.2.5 **403 (FORBIDDEN)**
-        2.2.6 **404 (NOT FOUND)**
-        2.2.7 **500 (INTERNAL SERVER ERROR)**
-    2.3 Data
+    - Content Type(*content-type*)
+    - Response Code 
+        - **200 (OK)**
+        - **201 (CREATED)**
+        - **204 (NO CONTENT)**
+        - **400 (BAD REQUEST)**
+        - **403 (FORBIDDEN)**
+        - **404 (NOT FOUND)**
+        - **500 (INTERNAL SERVER ERROR)**
+    - Data
 
 ##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
