@@ -33,7 +33,7 @@ Components can be managed, updated, and reused without affecting the system as a
 
 2. `Sending Response`
 
-    - Content Type(*content-type*)
+    - Content Type (*content-type*)
     - Response Code 
         - **200 (OK)**
         - **201 (CREATED)**
