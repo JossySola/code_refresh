@@ -66,8 +66,8 @@ The request returns a Promise which will either be resolved or rejected. If the 
 const shortenUrl = () => {
     const urlToShorten = inputField.value;
     const data = JSON.stringify({destination: urlToShorten});
-  
-	fetch(url, {
+    
+    fetch(url, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -92,5 +92,50 @@ const shortenUrl = () => {
 
 # Intro to async GET Requests
 
+We're going to take what we've learned about chaining Promises and make it simpler using functionality introduced in ES8: `async` and `await`. We will use the new keywords `async` and `await`, as well as the `try` and `catch` statements.
+
+```javascript
+// async await GET
+
+const getData = async () => {
+    try {
+        const response = await fetch('https://api-to-call.com/endpoint');
+        if(response.ok) {
+            const jsonResponse = await response.json();
+            // Code to execute with jsonResponse
+        }
+        throw new Error('Request failed!');
+    } catch (error) {
+        console.log(error);
+    }
+}
+```
+
++ The `async` keyword is used to declare an `async` function that returns a promise
++ The `await` keyword can only be used within an `async` function. `await` suspends the program while waiting for a promise to resolve
++ In a `try...catch` statement, code in the `try` block will be run and in the event of an exception, the code in the `catch` statement will run
+
+# Intro to async POST Requests
+
+We still have the same structure as the GET request, but in the `fetch()` call, we now have to include an additional argument that contains more information like `method` and `body`.
+
+```javascript
+// async await POST
+const getData = async () => {
+    try {
+        const response = await fetch('https://api-to-call.com/endpoint', {
+            method: 'POST',
+            body: JSON.stringify({id: 200})
+        })
+        if(response.ok) {
+            const jsonResponse = await response.json();
+            // Code to execute with jsonResponse
+        }
+        throw new Error('Request failed!');
+    } catch (error) {
+        console.log(error);
+    }
+}
+```
 
 ##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
