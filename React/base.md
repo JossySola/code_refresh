@@ -44,4 +44,6 @@ const printCarInfo = ({model, maker, city}) => {
 printCarInfo(truck);
 // Prints: The 1977 Mustang convertible, or Ford, is in the city Detroit
 ```
-The **printCarInfo** function uses objects destructuring to create three parameter variables: **model**, **maker**, and **city**. When the function is invoked with the **truck** object, these parameters are assigned the corresponding values from that object.
+The **printCarInfo** function uses object destructuring to create three parameter variables: **model**, **maker**, and **city**. When the function is invoked with the **truck** object, these parameters are assigned the corresponding values from that object.
+
+##### _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
