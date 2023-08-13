@@ -12,6 +12,7 @@ React.js is a JavaScript library developed by engineers at Facebook.
 JSX is a syntax extension for JavaScript. It was written to be used with React.
 
 If a JavaScript file contains JSX code, then that file will have to be compiled. This means that before the files reaches a web browser, a JSX compiler will translate any JSX into regular JavaScript.
+
 ---
 
 A basic unit of JSX is called `JSX element`.
@@ -69,6 +70,7 @@ const paragraphs = (
 ```
 
 The first *opening tag* and the *final closing tag* of a JSX expression must belong to the same JSX element!
+
 ---
 
 ## Rendering JSX
