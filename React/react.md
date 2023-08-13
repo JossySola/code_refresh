@@ -85,7 +85,7 @@ root.render(<h1>Hello world</h1>);
 
 We use `createRoot()` from the `react-dom/client` library, which creates a React root from `container` and stores it in `root`. `root` can be used to render a JSX expression. This is the **"where to place the content"** part of React rendering.
 
-Then it uses the `render()` method of `root` to render the content passed in as an argument. Here we pass an <h1> element, which displays `Hello world`. This is the **"what content to render"** part of React rendering.
+Then it uses the `render()` method of `root` to render the content passed in as an argument. Here we pass an '<h1>' element, which displays `Hello world`. This is the **"what content to render"** part of React rendering.
 
 The `render()` method's argument doesn't need to be JSX, but it should *evaluate* to a JSX expression. The argument could also be a variable, so long as that variable evaluates to a JSX expression.
 
