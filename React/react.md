@@ -45,7 +45,7 @@ You can `nest JSX elements` inside of other JSX elements.
 
 To make this more readable, you can use HTML-style `line breaks` and `indentation`.
 
-If a JSX expression takes up more than one line, then you must **wrap the multi-line JSX expression in parentheses*.
+If a JSX expression takes up more than one line, then you must *wrap the multi-line JSX expression in parentheses*.
 
 ```html
 (
@@ -144,7 +144,7 @@ That means that you can access variables while inside of a JSX expression, even 
 
 ### Variable Attributes in JSX
 
-When writing JSX, it's common to use variable to set *attributes*. *Object properties* are also often used to set attributes.
+When writing JSX, it's common to use variables to set *attributes*. *Object properties* are also often used to set attributes.
 
 ```javascript
 const sideLength = "200 px";
@@ -217,7 +217,7 @@ The `.map()` call returns a new array of elements.
 
 ### Keys
 
-A `key` is a JSX attribute. The attribute's value should be something unique similar, to an `id` attribute. `Keys` don't do anything visible! React uses them internally to keep track of lists. If you don't use keys when you're supposed to, React might accidentally scramble your list items into wrong order.
+A `key` is a JSX attribute. The attribute's value should be something unique, similar to an `id` attribute. `Keys` don't do anything visible! React uses them internally to keep track of lists. If you don't use keys when you're supposed to, React might accidentally scramble your list items into wrong order.
 
 ```html
 <ul>
