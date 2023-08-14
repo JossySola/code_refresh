@@ -85,5 +85,64 @@ In an application fully built with React, you will only need to do this once. On
 
 ## Components and Advanced JSX
 
-### Use Multiline JSX in a Component
+### Multiline JSX in a Component
 
+```javascript
+function QuoteMaker() {
+    return (
+      <blockquote>
+        <p>
+          The world is full of objects, more or less interesting; I do not wish to add any more.
+        </p>
+        <cite>
+          <a target="_blank"
+            href="https://en.wikipedia.org/wiki/Douglas_Huebler">
+            Douglas Huebler
+          </a>
+        </cite>
+      </blockquote>
+    );
+};
+```
+
+### Logic in a Function Component
+
+You can also put *calculations/conditions* that need to happen, **before** returning your JSX element within the function component
+
+```javascript
+function RandomNumber() {
+  //First, some logic that must happen before returning
+  const n = Math.floor(Math.random() * 10 + 1);
+  //Next, a return statement using that logic: 
+  return <h1>{n}</h1>
+}
+```
+
+### Event Listener and Event Handlers in a Component
+
+```javascript
+function MyComponent(){
+  function handleHover() {
+    alert('Stop it.  Stop hovering.');
+  }
+  return <div onHover={handleHover}></div>;
+}
+```
+
+The logic for what should happen when the `<div>` is hovered on is contained inside the `handleHover()` function. The function is then passed to the `<div>` element as a `prop`.
+
+Event handler functions are defined inside the function component and, by convention, start with the word "handle" followed by the type of event it is handling.
+
+The `handleHover()` function is passed without the parentheses we would typically see when calling a function. This is because passing it as `handleHover` indicates it should only be called once the event has happened. Passing it was `handleHover()` would trigger the function immediately!
+
+## Setting Up the Boilerplate Application
+
+> sudo npm install -g npm@latest
+> npx create-react-app reactappname
+
+You just need to run `npm start` in your app directory to begin serving the development server. It should auto-open a tab in your browser that points to **http://localhost:300**.
+
+Any changes to the source code will live-update here.
+
+---
+ _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
