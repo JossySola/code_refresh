@@ -20,7 +20,7 @@ In a React application, the **App.js** file typically is the top level of your a
 import ReactDOM from 'react-dom/client';
 ```
 
-The methods imported from `'react-dom` interact with the DOM.
+The methods imported from `'react-dom'` interact with the DOM.
 
 The methods imported from `'react'` do not deal with the DOM at all. They don't engage directly with anything that isn't part of React.
 
@@ -28,7 +28,7 @@ The methods imported from `'react'` do not deal with the DOM at all. They don't 
 
 It's useful to think of components as smaller pieces of our interface. Combined, they are the building blocks that make up a React application.
 
-We can use JavaScript functions to degine a new React component. This is called a **function component**.
+We can use JavaScript functions to define a new React component. This is called a **function component**.
 
 In the past, React components were defined using JavaScript classes. But since the introduction of Hooks, function components have become the standard in modern React applications.
 
