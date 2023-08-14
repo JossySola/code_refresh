@@ -138,6 +138,7 @@ The `handleHover()` function is passed without the parentheses we would typicall
 ## Setting Up the Boilerplate Application
 
 > sudo npm install -g npm@latest
+
 > npx create-react-app reactappname
 
 You just need to run `npm start` in your app directory to begin serving the development server. It should auto-open a tab in your browser that points to **http://localhost:300**.
