@@ -76,3 +76,110 @@ You have learned how to **pass** and how to **access** a `prop`. The most common
 
 Props in React travel in **one-way direction**, from top to bottom, **parent to child**.
 
+```javascript
+function App() {
+    return <Product name="Apple Watch" price = {399} rating = "4.5/5.0" />;
+}
+```
+
+In the example above, `App` is the parent and `Product` is the child. `App` passes three props to `Product` (`name`, `price`, and `rating`), which can then be read inside the child component.
+
+Props passed down are immutable, meaning they cannot be changed. If a component wants new values for its props, it needs to rely on the parent component to pass it new ones.
+
+## Render Different UI Based on props
+
+You can also use props to make decisions:
+
+```javascript
+function LoginMsg(props) {
+  if (props.password === 'a-tough-password') {
+    return <h2>Sign In Successful.</h2>
+  } else {
+    return <h2>Sign In Failed..</h2>
+  }
+}
+```
+
+In this example, we use the props passed in to make a decision rather than rendering the value to the screen.
+
+## Put an Event Handler in a Function Component
+
+You can, and often will, pass functions as `props`. It is especially common to pass *event handler* functions. We have to *define* an event handler before we can pass one anywhere.
+
+We define an event handler as a method on the function component!
+
+```javascript
+function Example() {
+  function handleEvent() {
+    alert(`I am an event handler.
+      If you see this message,
+      then I have been called.`);
+  }
+  return (
+      <h1 onClick={handleEvent}>
+        Hello world
+      </h1>
+    );
+}
+```
+
+## Pass an Event Handler as a Prop
+
+```javascript
+function Talker() {
+  function talk() {
+    let speech = '';
+    for (let i = 0; i < 10000; i++) {
+      speech += 'blah ';
+    }
+    alert(speech);
+	}
+  return <Button talk={talk} />;
+}
+```
+
+## Receive an Event Handler as a Prop
+
+```javascript
+function Button(props) {
+  return (
+    <button onClick={props.talk}>
+      Click me!
+    </button>
+  );
+}
+```
+
+## handleEvent, onEvent, and props.onEvent
+
+When you pass an *event handler* as a prop, there are two names that you have to choose. Both naming choices occur in the *parent* component, the component that defines the event handler and passes it.
+
+The first name that you have to choose is the name of the event handler itself.
+
+The second name that you have to choose is the name of the prop that you will use to *pass* the event handler. This is the same thing as the attribute name.
+
+These two names can be whatever we want. However, there is a naming convention that is commonly used.
+
+Here's how the naming convention works:
+First, think about what **type** of **event** you are listening for. Your prop name should be the word `on`, plus the event type.
+
+```javascript
+...
+  return <Child onHover={handleHover} />;
+...
+```
+
+## props.children
+
+Every component's `props` object has a property named `children`.
+
+`props.children` will return everything in between a component's opening and closing JSX tags.
+
+`props.children` would return everything in between `<MyFunctionComponent>` and `</MyFunctionComponent>`.
+
+By using `props.children`, we can separate the outer component from the content, which makes it flexible and reusable.
+
+If a component has more than one child between its JSX tags, then `props.children` will return those children in an array. However, if a component has only one child, then `props.children` will return the single child, not wrapped in an array.
+
+## Giving Default Values to props
+
