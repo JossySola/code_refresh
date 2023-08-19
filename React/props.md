@@ -183,3 +183,33 @@ If a component has more than one child between its JSX tags, then `props.childre
 
 ## Giving Default Values to props
 
+There are three ways to specify a default value for a prop.
+
+1. Adding a `defaultProps` static property to the component:
+  ```javascript
+  function Example(props) {
+    return <h1>{props.text}</h1>
+  }
+
+  Example.defaultProps = {
+    text: 'This is default text',
+  };
+  ```
+
+2. Specify the default value directly in the function definition:
+  ```javascript
+  function Example({text='This is default text'}) {
+    return <h1>{text}</h1>
+  }
+  ```
+
+3. You can also set the default value in the function body:
+  ```javascript
+  function Example(props) {
+    const {text = 'This is default text'} = props;
+    return <h1>{text}</h1>
+  }
+  ```
+
+---
+ _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._

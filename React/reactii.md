@@ -35,3 +35,6 @@ export default App;
 ```
 
 The example above shows us the ability to separate components into smaller functions in modules and connect them together to make more complex components!
+
+---
+ _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
