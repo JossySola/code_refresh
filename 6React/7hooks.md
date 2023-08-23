@@ -1,8 +1,8 @@
-## Hooks
+# Hooks
 
 `React Hooks`, plainly put, are functions that let us manage the internal state of components and handle post-rendering side effects directly from our function components. Using Hooks, we can determine what we want to show the users by declaring how our user interface should look based on the state.
 
-### Update Function Component State
+## Update Function Component State
 
 The **State Hook** is the most common Hook used for building React components.
 
@@ -41,7 +41,7 @@ function Toggle() {
 
 With the State Hook, updating the state is as simple as calling a state setter function. Calling the state setter signals to React that the component needs to re-render, so the whole function defining the component is called again. The magic of `useState()` is that it allows React to keep track of the current value of the state from one render to the next!
 
-## Initialize State
+### Initialize State
 
 Like how you used the State Hook to manage a variable with string values, we can use the State Hook to manage the value of any primitive data type and even data collections like arrays and objects!
 
@@ -61,7 +61,7 @@ If we don't pass an initial state value when calling `useState()`, the current v
 
 It's a convention to **name the setter variable** using the current state variable (for example, `email`) with **"set"** prepended (`setEmail`).
 
-## Use State Setter Outside of JSX
+### Use State Setter Outside of JSX
 
 ```javascript
 import React, { useState } from 'react';
@@ -99,4 +99,176 @@ or, using object restructuring, this:
 ```javascript
 const handleChange = ({target}) => setEmail(target.value);
 ```
+
+### Set From Previous State
+
+In the previous exercise, we learned to update the state by passing a new value `setState(newStateValue);`. However, React state updates are *asynchronous*. This means that there are some scenarios where portions of your code will run before the state is finished updating.
+
+This is a good and a bad thing! Grouping the state updates together can improve performance in your application, but it can result in outdated state values. Consequently, it is best practice to update a state with a callback function, preventing accidental outdated values.
+
+```javascript
+import React, { useState } from 'react';
+ 
+export default function Counter() {
+  const [count, setCount] = useState(0);
+ 
+  const increment = () => setCount(prevCount => prevCount + 1);
+ 
+  return (
+    <div>
+      <p>Wow, you've clicked that button: {count} times</p>
+      <button onClick={increment}>Click here!</button>
+    </div>
+  );
+}
+```
+
+When a button is pressed, the `increment()` event handler is called. Inside this function, we use our `setCount()` state setter with a callback function.
+
+Because the next value of `count` depends on the previous value of `count`, we pass a callback function as the argument for `setCount()` instead of a value.
+
+```javascript
+setCount(prevCount => prevCount + 1)
+```
+
+When our state setter calls the callback function, this state *setter callback function* takes our previous `count` as an argument. The value returned by this state setter callback function is used as the next value of `count`.
+
+We can also just call `setCount(count + 1)` and it would work the same but it is safer to use the callback method.
+
+### Arrays in State
+
+JavaScript arrays are the best data model for managing and rendering JSX lists.
+
+```javascript
+import React, { useState } from 'react';
+
+//Static array of pizza options offered. 
+const options = ['Bell Pepper', 'Sausage', 'Pepperoni', 'Pineapple'];
+
+export default function PersonalPizza() {
+  const [selected, setSelected] = useState([]);
+
+  const toggleTopping = ({target}) => {
+    const clickedTopping = target.value;
+    setSelected((prev) => {
+     // check if clicked topping is already selected
+      if (prev.includes(clickedTopping)) {
+        // filter the clicked topping out of state
+        return prev.filter(t => t !== clickedTopping);
+      } else {
+        // add the clicked topping to our state
+        return [clickedTopping, ...prev];
+      }
+    });
+  };
+
+  return (
+    <div>
+      {options.map(option => (
+        <button value={option} onClick={toggleTopping} key={option}>
+          {selected.includes(option) ? 'Remove ' : 'Add '}
+          {option}
+        </button>
+      ))}
+      <p>Order a {selected.join(', ')} pizza</p>
+    </div>
+  );
+}
+```
+
+The `options` array contains *static data*, meaning that it does not change. It's best practice to define static data models outside of function components since they don't need to be recreated each time our component re-renders. In our JSX, we use the JavaScript `.map()` method to render a button for each of the topping in our `options` array.
+
+The `selected` array contains *dynamic data*, meaning that it changes, usually based on a user's actions. We initialize `selected` as an empty array. When a button is clicked, the `toggleTopping()` event handler is called. Notice how this event handler uses information from the event object to determine which topping was clicked.
+
+When updating an array in a state, we do not just add new data to the previous array. We replace the previous array with a brand new array. This means that any information that we want to save from the previous array needs to be explicitly copied over to our new array. That's what this **spread syntax** does for us: `...prev`.
+
+Notice how we use the `.includes()`, `.filter()`, and `.map()` methods of our arrays. 
+
+### Object in State
+
+When we work with a set of related variables, it can be very helpful to group them into an object.
+
+```javascript
+export default function Login() {
+  const [formState, setFormState] = useState({});
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  return (
+    <form>
+      <input
+        value={formState.firstName}
+        onChange={handleChange}
+        name="firstName"
+        type="text"
+      />
+      <input
+        value={formState.password}
+        onChange={handleChange}
+        type="password"
+        name="password"
+      />
+    </form>
+  );
+}
+```
+
+Once again, when updating the state with `setFormState()` inside a function component, we do not modify the same object. We must copy over the values from the previous object when setting the next value of a state. Thankfully the spread syntax (`...prev`) makes this super easy to do!
+
+Anytime one of the input values is updated, the `handleChange()` function will be called. Inside this event handler, we use object destructuring to unpack the `target` property from our `event` object, then we use object destructuring again to unpack the `name` and `value` properties from the `target` object.
+
+Inside our state setter callback function, we wrap our curly brackets in parentheses like so:
+
+```javascript
+setFormState((prev) => ({...prev}))
+```
+
+This tells JavaScript that our curly brackets refer to a new object to be returned. We use `...`, the spread operator, to fill in the corresponding fields from our previous state. Finally, we overwrite the appropriate key with its updated value.
+
+The square brackets around the `name` is a **Computed Property Name** allowing us to use the string value stores by the `name` variable as a property key.
+
+### Separate Hooks for Separate States
+
+It's best to create multiple state variables based on which values tend to change together.
+
+```javascript
+function Subject() {
+  const [currentGrade, setGrade] = useState('B');
+  const [classmates, setClassmates] = useState(['Hasan', 'Sam', 'Emma']);
+  const [classDetails, setClassDetails] = useState({topic: 'Math', teacher: 'Ms. Barry', room: 201});
+  const [exams, setExams] = useState([{unit: 1, score: 91}, {unit: 2, score: 88}]);
+  // ...
+}
+```
+
+Managing dynamic data with separate state variables has many advantages, like making our code more simple to write, read, test, and reuse across components.
+
+---
+#### Review
+
++ With React, we feed static and dynamic data models to JSX to render a view to the screen
+
++ Hooks are used to "hook into" the internal component state for managing dynamic data in function components
+
++ We employ the State Hook using the code below. The `currentState` references the current value of the state and `initialState` initializes the value of the state for the component's first render
+```javascript
+const [currentState, stateSetter] = useState( initialState );
+```
++ State setters can be called in event handlers
+
++ We can define simple event handlers inline in our JSX and complex event handlers outside of our JSX
+
++ We use a state setter callback function when our next value depends on our previous value
+
++ We use arrays and objects to organize and manage related data that tend to change together
+
++ Use the spread syntax on collections of dynamic data to copy the previous state into the next state like so: `setArrayState((prev) => [...prev])` and `setObjectState((prev) => ({...prev}))`
+
++ It's best practice to have multiple, simpler states instead of having one complex state object
+
 
