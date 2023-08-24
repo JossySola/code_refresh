@@ -270,5 +270,56 @@ const [currentState, stateSetter] = useState( initialState );
 + Use the spread syntax on collections of dynamic data to copy the previous state into the next state like so: `setArrayState((prev) => [...prev])` and `setObjectState((prev) => ({...prev}))`
 
 + It's best practice to have multiple, simpler states instead of having one complex state object
+---
 
+## useEffect()
+
+Before Hooks, function components were only used to accept data in the form of props and return some JSX to be rendered. However, as we learned in the last lesson, the State Hook allows us to manage dynamic data, in the form of component state, within our function components.
+
+There are three key moments when the Effect Hook can be utilized: 
+
+1. When the component is first added, or *mounted*, to the DOM and renders.
+2. When the state or props change, causing the component to re-render.
+3. When the component is removed, or *unmounted*, from the DOM.
+
+### Function Component Effects
+
+The Effect Hook tells our component to do something every time it's rendered (or re-rendered). When React renders our component, it will update the DOM as usual, and then run our effect after the DOM has been updated. This happens for every render, including the first and last one.
+
+```javascript
+import React, { useState, useEffect } from 'react';
+ 
+function PageTitle() {
+  const [name, setName] = useState('');
+ 
+  useEffect(() => {
+    document.title = `Hi, ${name}`;
+  });
+ 
+  return (
+    <div>
+      <p>Use the input field below to rename this page!</p>
+      <input onChange={({target}) => setName(target.value)} value={name} type='text' />
+    </div>
+  );
+}
+```
+
+### Clean Up Effects
+
+Some effects require **cleanup**. When we add event listeners to the DOM, it is important to remove those event listeners when we are done with them to avoid memory leaks.
+
+```javascript
+useEffect(()=>{
+  document.addEventListener('keydown', handleKeyPress);
+  // Specify how to clean up after the effect:
+  return () => {
+    document.removeEventListener('keydown', handleKeyPress);
+  };
+})
+```
+
+If our effect returns a function, then the `useEffect()` Hook always treats that as the cleanup function. React will call this cleanup function before the component re-renders or unmounts. Since this cleanup function is optional, **it is our responsability to return a cleanup function** from our effect when our effect code could create memory leaks.
+
+### Control When Effects Are Called
 
