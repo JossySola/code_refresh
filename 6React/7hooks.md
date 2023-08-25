@@ -323,3 +323,126 @@ If our effect returns a function, then the `useEffect()` Hook always treats that
 
 ### Control When Effects Are Called
 
+The `useEffect()` function calls its first argument (the effect) after each time a component renders. It is common, when defininf function components, to run an effect only when the component mounts (renders the first time), but not when the component re-renders. If we want to only call our effect after the first render, we pass an empty array to `useEffect()` as the second argument. This second argument is called the **dependency array**.
+
+The dependency array is used to tell the `useEffect()` method when to call our effect and when to skip it. 
+
+We will be using an empty dependency array to call an effect when a component first mounts, and if a cleanup function is returned by our effect, calling that when the component unmounts.
+
+```javascript
+useEffect(() => {
+  alert("component rendered for the first time");
+  return () => {
+    alert("component is being removed from the DOM");
+  };
+}, []); 
+```
+
+### Fetch Data
+
+When our effect is responsible for fetching data from a server, we pay extra close attention to when our effect is called. Unnecessary round trips back and forth between our React components and the server can be costly in terms of:
+
++ Processing
++ Performance
++ Data usage for mobile users
++ API service fees
+
+When the data that our components need to render doesn't change, we can pass an empty dependency array so that the data is fetched after the first render. When the response is received from the server, we can use a state setter from the State Hook to store the data from the server's response in our local component state for future renders. Using the State Hook and the Effect Hook together in this way is a powerful pattern that saves our components from unnecessarily fetching new data after every render!
+
+> An empty dependency array signals to the Effect Hook that our effect never needs to be re-run.
+
+> A dependency array that is not empty signals to the Effect Hook that it can skip calling our effect after re-renders unless the value of one of the variables in our dependency array has changed.
+
+```javascript
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]); // Only re-run the effect if the value stored by count changes
+```
+
+### Rules of Hooks
+
+There are two main rules to keep in mind when using Hooks:
+
+1. Only calls Hooks at the top level
+2. Only calls Hooks from React functions
+
+React keeps track of the data and functions that we are managing with Hooks **based on their order in the function component's definition**.
+
+Instead of confusing React with code like this:
+```javascript
+if (userName !== '') {
+  useEffect(() => {
+    localStorage.setItem('savedUserName', userName);
+  });
+}
+```
+
+We can accomplish the same goal while consistently calling our Hook every time:
+```javascript
+useEffect(() => {
+  if (userName !== '') {
+    localStorage.setItem('savedUserName', userName);
+  }
+});
+```
+
+### Separate Hooks for Separate Effects
+
+When multiple values are closely related and change at the same time, it can make sense to group these values in a collection like an object or array. Packaging data together can also add complexity to the code responsible for managing that data. Therefore, it is a good idea to separate concerns by managing different data with different Hooks.
+
+Compare the complexity here, where data is bundled up into a single object:
+```javascript
+// Handle both position and menuItems with one useEffect hook.
+const [data, setData] = useState({ position: { x: 0, y: 0 } });
+useEffect(() => {
+  get('/menu').then((response) => {
+    setData((prev) => ({ ...prev, menuItems: response.data }));
+  });
+  const handleMove = (event) =>
+    setData((prev) => ({
+      ...prev,
+      position: { x: event.clientX, y: event.clientY }
+    }));
+  window.addEventListener('mousemove', handleMove);
+  return () => window.removeEventListener('mousemove', handleMove);
+}, []);
+```
+
+To the simplicity here, where we have separated concerns:
+```javascript
+const [menuItems, setMenuItems] = useState(null);
+useEffect(() => {
+  get('/menu').then((response) => setMenuItems(response.data));
+}, []);
+
+// Handle position with a separate useEffect hook.
+const [position, setPosition] = useState({ x: 0, y: 0 });
+useEffect(() => {
+  const handleMove = (event) =>
+    setPosition({ x: event.clientX, y: event.clientY });
+  window.addEventListener('mousemove', handleMove);
+  return () => window.removeEventListener('mousemove', handleMove);
+}, []);
+```
+
+---
+#### Review
+
++ We can import the `useEffect()` function from the `'react'` library and call it in our function components.
+
++ *Effect* refers to a function that we pass as the first argument of the `useEffect()` function. By default, the Effect Hooks calls this effect after each render.
+
++ The *cleanup function* is optionally returned by the effect. If the effect does anything that needs to be cleaned up to prevent memory leaks, then the effect returns a cleanup function, then the Effect Hook will call this cleanup function before calling the effect again as well as when the components is being unmounted.
+
++ The *dependency array* is the optional second argument that the `useEffect()` function can be called with in order to prevent repeatedly calling the effect when this is not needed. This array should consist of all variables that the effect depends on.
+
+The Effect Hook is all about scheduling when our effect's code gets executed. We can use the dependency array to configure when our effect is called in the following ways:
+
+| **Dependency Array** | **Effect called after first render & ...** |
+| -------------------- | ------------------------------------------ |
+| undefined            | every re-render                            |
+| Empty array          | no re-renders                              |
+| Non-empty array      | when any value in the dependency array changes |
+
+---
+ _All the information written above is taken from [Codecademy](https://www.codecademy.com), **Front-End Career Path**._
