@@ -49,6 +49,23 @@ To make the UI interactive, you need to let users change your underlying data mo
 
 Think of state as the minimal set of changing data that your app needs to remember. The most important principle for structuring state is to keep it **DRY (Don't Repeat Yourself)**. Figure out the absolute minimal representation of the state your application needs and compute everything else on-demand. For example, if you're building a shopping list, you can store the items as an array in state. If you want to also display the number of items in the list, don't store the number of items as another state value --instead, read the length of your array.
 
+Identify the data that is not a state:
+
++ Does it **remain unchanged** over time? If so, it isn't state.
++ Is it **passed in from a parent** via props? If so, it isn't state.
++ **Can you compute it** based on existing state or props in your component? If so, it *definitely* isn't state!
+
+What's left is probably state.
+
+Example:
+
+1. The original `list of products` is **passed in as props, so it's not state**.
+2. The `search text` seems to be state since it changes over time and can't be computed from anything.
+3. The `value of checkbox` seems to be state since it changes over time and can't be computed from anything.
+4. The `filtered list of products` **isn't state because it can be computed** by taking the original list of products and filtering it according to the search text and value of the checkbox.
+
+This means only the `search text` and the `value of the checkbox` are state!
+
 ## Step 4: Identify where your state should live
 
 For each piece of state in your application:
