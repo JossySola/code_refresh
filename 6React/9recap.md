@@ -87,6 +87,19 @@
     + **Any other value** (e.g. number `5`) adds *"replace with `5`"* to the queue, ignoring what's already queued.
     + **Updater functions must be pure** and only *return* the result. Don't try to set state from inside of them or run other side effects.
 + It's common to name the updater function argument by the first letters of the corresponding state variable, repeat the full state variable name, or use a prefix.
+---
++ Numbers, strings, and booleans are "immutable", meaning unchangeable or "read-only". You can trigger a re-render to *replace* a value `setX(5);`.
++ In React, you should treat Objects **as if** they were immutable, even though they are technically mutable. Instead of mutating them, **you should always replace them**.
++ Mutation is only a problem when you change *existing* objects that are already in state. Mutating an object you've just created is okay because *no other code references it yet*, this is called a **local mutation**.
++ You can use the `...` **object spread** syntax so that you don't need to copy every property separately.
++ Arrays are mutable in JavaScript, but you **should treat them as immutable when you store them in state**.
++ The **array spread syntax** also lets you prepend an item by placing it *before* the original `...prev`.
++ To remove from an array, you can use the `filter()` method.
++ To transform an array, you can use the `map()` method. 
++ To replace items in an array, you can use the `map()` method as well. Inside the `map` call, **you will receive the item index as the second argument**.
++ Making other changes to an array can be done by **making a copy of the array first, and then make changes to it**.
+
+
 
 
 
