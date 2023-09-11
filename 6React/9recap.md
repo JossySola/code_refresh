@@ -34,7 +34,9 @@
 ---
 + A `pure` function should always return the same result.
 + Components should only *return* their JSX, and not *change* any objects or variables that existed before rendering.
----
+
+## Adding Interactivity
+
 + React lets you add `event handlers` to your JSX. Event handlers are your own functions that will be triggered in response to user interactions like clicking, hovering, focusing on form inputs, and so on.
 + To add an event handler, you will first define a function and then *pass it as a prop* to the appropriate JSX tag.
 + Event handler functions:
@@ -56,12 +58,42 @@
 + You can have as many state variables of as many types as you like in one component. It is a good idea to have multiple state variables if their state is unrelated.
 + State is local to a component instance on the screen. In other words, **if you render the same component twice, each copy will have completely isolated state**.
 ---
-
-
-
----
 + Before your components are displayed on the screen, they must be rendered by React. This process of requesting and serving UI has three steps:
     + **Triggering** a render
     + **Rendering** the component
     + **Committing** to the DOM
++ After you trigger a render, React calls your components to figure out what to display on screen. **"Rendering" is React calling your components**. React will call the function component whose state update triggered the render.
++ After rendering (calling) your components, React will modify the DOM.
++ After rendering is done and React updated the DOM, the browser will repaint the screen (browser rendering).
++ You can use `Strict Mode` to find mistakes in your components.
++ React does not touch the DOM if the rendering result is the same as last time.
+---
++ State actually "lives" in React itself, outside the component/function.
 + React state behaves more like a snapshot. **Setting it does not change the state variable you already have, but instead triggers a re-render**.
++ **Setting state only changes it for the *next* render**. A state variable's value never changes within a render.
++ For an interface to react to an event, you need to *update the state*.
++ The JSX you return from a component is like a snapshot of the UI in time. Its props, event handlers, and local variables were all calculated **using its state at the time of the render**.
++ When React re-renders a component:
+    1. React calls your function again.
+    2. Your function returns a new JSX snapshot.
+    3. React then updates the screen to match the snapshot you've returned.
++ Variables and event handlers don't "survive" re-renders. Every render has its own event handlers.
++ Event handlers created in the past have the state values from the render in which they were created.
+---
++ **React waits until *all* code in the event handlers has run before processing your state updates**. This lets you update multiple state variables without triggering too many re-renders. But this also means that the UI won't be updated until *after* your event handler, and any code in it, completes. This behavior, also known as `batching`, makes your React app run much faster.
++ **React does not `batch` across *multiple* intentional events like clicks**, each click is handled separately. This ensures that, for example, if the first button click disables a form, the second click would not submit it again.
++ If you would like to update the same state variable multiple times before the next render, instead of passing the *next state value* like `setNumber(number + 1)`, you can pass a *function* that calculates the next state based on the previous one in the queue, like `setNumber(n => n + 1)`. It is a way to tell React to "do something with the state value". This `n => n + 1` is called an **updater function** when you pass it to a state setter.
+    + **An updater function** (e.g. `n => n + 1`) gets added to the queue.
+    + **Any other value** (e.g. number `5`) adds *"replace with `5`"* to the queue, ignoring what's already queued.
+    + **Updater functions must be pure** and only *return* the result. Don't try to set state from inside of them or run other side effects.
++ It's common to name the updater function argument by the first letters of the corresponding state variable, repeat the full state variable name, or use a prefix.
+
+
+
+
+
+
+
+
+
+
