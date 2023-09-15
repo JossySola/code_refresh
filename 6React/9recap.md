@@ -113,5 +113,4 @@
 ---
 | **IMPERATIVE** | **DECLARATIVE** |
 | -------------- | --------------- |
-| Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | 
-Yo **declare what you want to show**, and React figures out how to update the UI. |
+| Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | Yo **declare what you want to show**, and React figures out how to update the UI. |
