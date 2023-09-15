@@ -99,14 +99,19 @@
 + To replace items in an array, you can use the `map()` method as well. Inside the `map` call, **you will receive the item index as the second argument**.
 + Making other changes to an array can be done by **making a copy of the array first, and then make changes to it**.
 
+## Managing State
 
-
-
-
-
-
-
-
-
-
-
++ The most important principle is that state shouldn't contain redundant or duplicated information.
++ You will describe the UI you want to see for the different visual states of your component ("initial state", "typing state", "success state") and then trigger the state changes in response to user input.
++ When you want the state of two components to always change together, move the state in each component to their closest common parent, and then pass it down to them via props ("lifting state up").
++ By default, React preserves the parts of the tree that "match up" with the previously rendered component tree.
++ React lets you override the default behavior, and *force* a component to reset its state by passing it a different `key`, like `<Chat key={email} />`. This tells React that if the recipient is different, it should be considered a *different* `Chat` component that needs to be recreated from scratch with the new data (*this refers to an example in the article where there are three different chats (recipients), one text area (chat) and a submit button*).
++ You can consolidate all the state update logic outside your component in a single function, called `"reducer"`.
++ The reducer function specifies how the state should update in response to each action.
++ `Reducers` let you consolidate a component’s state update logic. `Context` lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.
++ `Context` lets the parent component make some information available to any component in the tree below it without passing it explicitly through props.
+---
+| **IMPERATIVE** | **DECLARATIVE** |
+| -------------- | --------------- |
+| Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | 
+Yo **declare what you want to show**, and React figures out how to update the UI. |
