@@ -211,7 +211,17 @@ function submitForm(answer) {
     5. **Avoid deeply nested state**. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
 + Don't mirror props in state. Instead, use the prop directly in your code. If you want to give it a shorter name, use a constant. "Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop. By convention, start the prop name with `initial` or `default` to clarify that its new values are ignored.
 + If the state is too nested to update easily, consider making it `"flat"` (also known as `"normalize"`). Here is one way you can restructure this data. Instead of a tree-like structure where each `place` has an array of *its child places*, you can have each place hold an array of *its child place IDs*. Then store a mapping from each place ID to the corresponding place.
-+ 
++ Sometimes, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. This is known as `lifting state up`.
++ It is common to call a component with some local state `"uncontrolled"`. For example, the original **Panel** component with an **isActive** state variable is uncontrolled because its parent cannot influence whether the panel is active or not.
++ In contrast, you might say a component is `"controlled"` when the important information in it is driven by props rather than its own local state. This lets the parent component fully specify its behavior. 
++ **For each unique piece of state, you will choose the component that "owns" it**. This principle is also known as having a `single source of truth`. It doesn't mean that all state lives in one place-- but that for *each* piece of state, there is a *specific* component that holds that piece of information. Instead of duplicating shared state between components, *lift it up* to their common shared parent, and *pass it down* to the children that need it.
++ State is isolated between components. React keeps track of which state belongs to which component based on their place in the UI tree. You can control when to preserve state and when to reset it between re-renders.
++ React makes **UI trees** from your JSX. Then React DOM updates the browser DOM elements to match the UI tree.
+![React trees](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_dom_tree.dark.png&w=1080&q=75)
+*From components, React creates a UI tree which React DOM uses to render the DOM*
+
++ When you give a component state, you might think the state "lives" inside the component. But the **state is actually held inside React**. React associates each piece of state it's holding with the correct component by where that component sits in the UI tree. In React, each component on the screen has fully isolated state. **React preserves a component's state for as long as it's being rendered at its position in the UI tree**. If it gets removed, or a different component gets rendered at the same position, React discards its state.
+
 
 
 ---
