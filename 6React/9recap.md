@@ -123,6 +123,7 @@
     5. **Connect** the event handlers to set the state
 + Mocking lets you quickly iterate on the UI before you wire up any logic. If a component has a lot of visual states, it can be convenient to show them all on one page, pages like this are often called "living styleguides" or "storybooks".
 + To help visualize the state changes flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this wat and sort out bugs long before implementation.
+
 ![State Changes flowchart](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fresponding_to_input_flow.dark.png&w=750&q=75)
 
 + Here are some questions you can ask about your state variables when refactoring:
