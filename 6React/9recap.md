@@ -217,6 +217,7 @@ function submitForm(answer) {
 + **For each unique piece of state, you will choose the component that "owns" it**. This principle is also known as having a `single source of truth`. It doesn't mean that all state lives in one place-- but that for *each* piece of state, there is a *specific* component that holds that piece of information. Instead of duplicating shared state between components, *lift it up* to their common shared parent, and *pass it down* to the children that need it.
 + State is isolated between components. React keeps track of which state belongs to which component based on their place in the UI tree. You can control when to preserve state and when to reset it between re-renders.
 + React makes **UI trees** from your JSX. Then React DOM updates the browser DOM elements to match the UI tree.
+
 ![React trees](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_dom_tree.dark.png&w=1080&q=75)
 *From components, React creates a UI tree which React DOM uses to render the DOM*
 
