@@ -113,4 +113,5 @@
 ---
 | **IMPERATIVE** | **DECLARATIVE** |
 | -------------- | --------------- |
-| Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | Yo **declare what you want to show**, and React figures out how to update the UI. |
+| Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | You **declare what you want to show**, and React figures out how to update the UI. |
+| <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the buttom **become disabled**, and a spinner **appears**.</li><If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
