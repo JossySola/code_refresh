@@ -203,3 +203,16 @@ function submitForm(answer) {
 ```
 
 + Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).
++ **Principles for structuring state**
+    1. **Group related state**. If you always update two or more state variables at the same time, consider merging them into a single state variable.
+    2. **Avoid contradictions in state**. When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
+    3. **Avoid redundant state**. If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
+    4. **Avoid duplication in state**. When the same data is duplicated between multiple state variables, or within nested objects, it is difficult to keep them in sync. Reduce duplication when you can.
+    5. **Avoid deeply nested state**. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
++ Don't mirror props in state. Instead, use the prop directly in your code. If you want to give it a shorter name, use a constant. "Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop. By convention, start the prop name with `initial` or `default` to clarify that its new values are ignored.
++ If the state is too nested to update easily, consider making it `"flat"` (also known as `"normalize"`). Here is one way you can restructure this data. Instead of a tree-like structure where each `place` has an array of *its child places*, you can have each place hold an array of *its child place IDs*. Then store a mapping from each place ID to the corresponding place.
++ 
+
+
+---
+ _All the information written and images shown above are taken from [React.dev](https://react.dev/learn), **LEARN REACT**._
