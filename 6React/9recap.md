@@ -115,3 +115,91 @@
 | -------------- | --------------- |
 | Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | You **declare what you want to show**, and React figures out how to update the UI. |
 | <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the buttom **become disabled**, and a spinner **appears**.</li><If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
++ **Thinking about UI declaratively**
+    1. **Identify** your component's different visual states
+    2. **Determine** what triggers those state changes
+    3. **Represent** the state in memory using `useState`
+    4. **Remove** any non-essential state variables
+    5. **Connect** the event handlers to set the state
++ Mocking lets you quickly iterate on the UI before you wire up any logic. If a component has a lot of visual states, it can be convenient to show them all on one page, pages like this are often called "living styleguides" or "storybooks".
++ To help visualize the state changes flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this wat and sort out bugs long before implementation.
+![State Changes flowchart](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fresponding_to_input_flow.dark.png&w=750&q=75)
+
++ Here are some questions you can ask about your state variables when refactoring:
+    + **Does this state cause a paradox?** For example, `isTyping` and `isSubmitting` can't both be `true`. A paradox usually means that the state is not constrained enough. There are four possible combinations of two booleans, but only three correspond to valid states. To remove the "impossible" state, you can combine these into a `status` that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
+    + **Is the same information available in another state variable already?** Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time. By making them separate state variables, you risk them going out of sync and causing bugs. Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
+    + **Can you get the same information from the inverse of another state variable?** `isError` is not needed because you can check `error !== null` instead.
+
+```javascript
+import { useState } from 'react';
+
+export default function Form() {
+  const [answer, setAnswer] = useState('');
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('typing');
+
+  if (status === 'success') {
+    return <h1>That's right!</h1>
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      await submitForm(answer);
+      setStatus('success');
+    } catch (err) {
+      setStatus('typing');
+      setError(err);
+    }
+  }
+
+  function handleTextareaChange(e) {
+    setAnswer(e.target.value);
+  }
+
+  return (
+    <>
+      <h2>City quiz</h2>
+      <p>
+        In which city is there a billboard that turns air into drinkable water?
+      </p>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={answer}
+          onChange={handleTextareaChange}
+          disabled={status === 'submitting'}
+        />
+        <br />
+        <button disabled={
+          answer.length === 0 ||
+          status === 'submitting'
+        }>
+          Submit
+        </button>
+        {error !== null &&
+          <p className="Error">
+            {error.message}
+          </p>
+        }
+      </form>
+    </>
+  );
+}
+
+function submitForm(answer) {
+  // Pretend it's hitting the network.
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let shouldError = answer.toLowerCase() !== 'lima'
+      if (shouldError) {
+        reject(new Error('Good guess but a wrong answer. Try again!'));
+      } else {
+        resolve();
+      }
+    }, 1500);
+  });
+}
+```
+
++ Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).
