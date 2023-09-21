@@ -1,4 +1,4 @@
-# React RECAP
+# React v18.2.0 RECAP 
 
 ## Describing the UI
 
@@ -41,13 +41,13 @@
 + To add an event handler, you will first define a function and then *pass it as a prop* to the appropriate JSX tag.
 + Event handler functions:
     + Are usually defined *inside* your components.
-    Have names that state with `handle`, followed by the name of the event.
+    Have names that start with `handle`, followed by the name of the event.
 + By convention, event handler props should start with `on`, followed by a capital letter.
 + Because event handlers are declared inside of a component, they have access to the component's props.
-+ Event handlers will also catch events from any children your component might have. We say that an event `"bubbles"` or `"propagates"` up the tree, it starts with where the event happend, and then goes up the tree.
++ Event handlers will also catch events from any children your component might have. We say that an event `"bubbles"` or `"propagates"` up the tree, it starts with where the event happened, and then goes up the tree.
 + Event handlers receive an **event object** as their only argument. By convention, it's usually called `e`, which stands for "event".
 + If you want to prevent an event from reaching parent components, you need to call `e.stopPropagation()`.
-+ Some browser events have default behavior associated with them. For example, a **<form>** submit event, which happens when a button inside of it is clicked, will reload the whole page by default. You can call `e.preventDefault()` on the event object to stop this from happening.
++ Some browser events have default behavior associated with them. For example, a **form** submit event, which happens when a submit button inside of it is clicked, will reload the whole page by default. You can call `e.preventDefault()` on the event object to stop this from happening.
 + Unlike rendering functions, event handlers don't need to be `pure`.
 ---
 + Components need to "remember" things: the current input value, the current image, the shopping cart, etc. In React, this kind of component-specific memory is called `state`.
@@ -219,12 +219,44 @@ function submitForm(answer) {
 + State is isolated between components. React keeps track of which state belongs to which component based on their place in the UI tree. You can control when to preserve state and when to reset it between re-renders.
 + React makes **UI trees** from your JSX. Then React DOM updates the browser DOM elements to match the UI tree.
 
-![React trees](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_dom_tree.dark.png&w=1080&q=75)
+![From components to React UI tree to Broswer DOM](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_dom_tree.dark.png&w=1080&q=75)
 *From components, React creates a UI tree which React DOM uses to render the DOM*
 
 + When you give a component state, you might think the state "lives" inside the component. But the **state is actually held inside React**. React associates each piece of state it's holding with the correct component by where that component sits in the UI tree. In React, each component on the screen has fully isolated state. **React preserves a component's state for as long as it's being rendered at its position in the UI tree**. If it gets removed, or a different component gets rendered at the same position, React discards its state.
 
+![React tree](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_tree.dark.png&w=640&q=75)
 
++ In React, each component on the screen has fully isolated state. For example, if you render two `Counter` components side by side, each of them will get its own, independent, `score` and `hover` states.
++ **React preserves a component's state for as long as it's being rendered at its position in the UI tree**. If it gets removed, or a different component gets rendered at the same position, React discards its state.
+
+```javascript
+...
+
+{isFancy ? (
+        <Counter isFancy={true} /> 
+      ) : (
+        <Counter isFancy={false} /> 
+      )}
+
+...
+```
+![Same Component Same Position](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_same_component.dark.png&w=640&q=75)
+*Updating the `App` state does not reset the `Counter` because `Counter` stays in the same position*
+
++ It's the same component at the same position, so from React's perspective, it's the same counter. Whether `isFancy` is `true` or `false`, you always have a `<Counter />` as the first child of the `div` returned from the root `App` component. Remember that **it's the position in the UI tree-—-not in the JSX markup---that matters to React!**.
++ **When you render a different component in the same position, it resets the state of its entire subtree**.
++ As a rule of thumb, **if you want to preserve the state between re-renders, the structure of your tree needs to "match up"** from one render to another.
++ **Always declare component functions at the top level, and don't nest their definitions**.
++ Resetting state at the same position. There are two ways to reset state when switching between them:
+  1. Render components in different positions
+  2. Give each component an explicit identity with `key`
++ You can use `key` to make React distinguish between any components. By default, React uses order within the parent to discern between components. But `key` lets you tell React that this is not just a *first* counter, or a *second* counter, but a specific counter. *Remember that `key` is not globally unique. It only specifies the position within the parent*.
++ There are few ways to keep a state "alive" for a component that's no longer visible:
+  - You could render all components instead of just the current one, but hide all the others with CSS.
+  - You could `lift the state up` and hold the state for each component in the parent component.
+---
++ The **state update logic** of components with many state updates spread across many event handlers can be **consolidated** outside the component **in a single function**, called a `reducer`.
++ 
 
 ---
- _All the information written and images shown above are taken from [React.dev](https://react.dev/learn), **LEARN REACT**._
+ _All the information written and images shown above are taken from [React.dev](https://react.dev/learn) -> **Learn React**_
