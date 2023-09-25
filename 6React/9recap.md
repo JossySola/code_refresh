@@ -1,4 +1,5 @@
-# React v18.2.0 RECAP 
+# React RECAP
+#### 18.2.0
 
 ## Describing the UI
 
@@ -241,6 +242,7 @@ function submitForm(answer) {
 ...
 ```
 ![Same Component Same Position](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_same_component.dark.png&w=640&q=75)
+
 *Updating the `App` state does not reset the `Counter` because `Counter` stays in the same position*
 
 + It's the same component at the same position, so from React's perspective, it's the same counter. Whether `isFancy` is `true` or `false`, you always have a `<Counter />` as the first child of the `div` returned from the root `App` component. Remember that **it's the position in the UI tree-—-not in the JSX markup---that matters to React!**.
@@ -256,6 +258,10 @@ function submitForm(answer) {
   - You could `lift the state up` and hold the state for each component in the parent component.
 ---
 + The **state update logic** of components with many state updates spread across many event handlers can be **consolidated** outside the component **in a single function**, called a `reducer`.
++ Reducers are a different way to handle state. You can migrate from `useState` to `useReducer` in three steps:
+  1. **Move** from setting state to dispatching actions.
+  2. **Write** a reducer function.
+  3. **Use** the reducer from your component.
 + 
 
 ---
