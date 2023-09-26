@@ -123,7 +123,7 @@
     4. **Remove** any non-essential state variables
     5. **Connect** the event handlers to set the state
 + Mocking lets you quickly iterate on the UI before you wire up any logic. If a component has a lot of visual states, it can be convenient to show them all on one page, pages like this are often called "living styleguides" or "storybooks".
-+ To help visualize the state changes flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this wat and sort out bugs long before implementation.
++ To help visualize the state changes flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this way and sort out bugs long before implementation.
 
 ![State Changes flowchart](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fresponding_to_input_flow.dark.png&w=750&q=75)
 
@@ -262,7 +262,22 @@ function submitForm(answer) {
   1. **Move** from setting state to dispatching actions.
   2. **Write** a reducer function.
   3. **Use** the reducer from your component.
-+ 
+
+| State | Event handler |
+| --------------------- |
+| tasks, setTasks | handleChangeTask(*logic using setTasks*) |
+|       | handleDeleteTask(*logic using setTasks*) |
+|       | handleAddTask(*logic using setTasks*) |
+
+*Your event handlers currently specify **what to do** by setting state*
+
+| Reducer | Event handler |
+| ----------------------- |
+| reducer(state, action) git | handleChangeTask(*dispatch action object*)|
+| | handleDeleteTask(*dispatch action object*) |
+| | handleAddTask(*dispatch action object*) |
+
+*Instead of telling React "what to do" by setting state, you specify "what the user just did" by `dispatching "actions"` from your event handlers*
 
 ---
  _All the information written and images shown above are taken from [React.dev](https://react.dev/learn) -> **Learn React**_
