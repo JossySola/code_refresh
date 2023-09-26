@@ -115,7 +115,7 @@
 | **IMPERATIVE** | **DECLARATIVE** |
 | -------------- | --------------- |
 | Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | You **declare what you want to show**, and React figures out how to update the UI. |
-| <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the buttom **become disabled**, and a spinner **appears**.</li><If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
+| <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the button **become disabled**, and a spinner **appears**.</li><If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
 + **Thinking about UI declaratively**
     1. **Identify** your component's different visual states
     2. **Determine** what triggers those state changes
@@ -259,7 +259,7 @@ function submitForm(answer) {
 ---
 + The **state update logic** of components with many state updates spread across many event handlers can be **consolidated** outside the component **in a single function**, called a `reducer`.
 + Reducers are a different way to handle state. You can migrate from `useState` to `useReducer` in three steps:
-  1. **Move** from setting state to dispatching actions.
+  1. **Move** from setting state (*setX(Y)*) to dispatching actions (*dispatch({...})*).
   2. **Write** a reducer function.
   3. **Use** the reducer from your component.
 
@@ -273,9 +273,9 @@ function submitForm(answer) {
 
 | Reducer | Event handler |
 | --------|-------------- |
-| reducer(state, action) | handleChangeTask(*dispatch action object*)|
-| *(external function)*  | handleDeleteTask(*dispatch action object*) |
-| | handleAddTask(*dispatch action object*) |
+| const [tasks, dispatch] = useReducer(tasksReducer, initialTasks); | handleChangeTask(*dispatch action object*)|
+| reducer(state, action)  | handleDeleteTask(*dispatch action object*) |
+| *(external function)*| handleAddTask(*dispatch action object*) |
 
 *Instead of telling React "what to do" by setting state, you specify "what the user just did" by `dispatching "actions"` from your event handlers*
 
@@ -316,7 +316,7 @@ We recommend wrapping each `case` block into the `{` and `}` curly braces so tha
 ```javascript
 import { useReducer } from 'react';
 
-const [tasksm dispatch] = useReducer(tasksReducer, initialTasks);
+const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
 ```
 
 + With reducers, the event handlers only specify *what happened* by dispatching actions, and the reducer function determines *how the state updates* in response to them.
