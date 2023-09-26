@@ -263,21 +263,68 @@ function submitForm(answer) {
   2. **Write** a reducer function.
   3. **Use** the reducer from your component.
 
-| ==State== | Event handler |
+| State | Event handler |
 | ------|-------------- |
-| tasks, setTasks *(inside component)* | handleChangeTask(*logic using setTasks*) |
-|       | handleDeleteTask(*logic using setTasks*) |
+| tasks, setTasks | handleChangeTask(*logic using setTasks*) |
+| *(inside component)*   | handleDeleteTask(*logic using setTasks*) |
 |       | handleAddTask(*logic using setTasks*) |
 
 *Your event handlers currently specify **what to do** by setting state*
 
-| ==Reducer== | Event handler |
+| Reducer | Event handler |
 | --------|-------------- |
-| reducer(state, action) *(external function)* | handleChangeTask(*dispatch action object*)|
-| | handleDeleteTask(*dispatch action object*) |
+| reducer(state, action) | handleChangeTask(*dispatch action object*)|
+| *(external function)*  | handleDeleteTask(*dispatch action object*) |
 | | handleAddTask(*dispatch action object*) |
 
 *Instead of telling React "what to do" by setting state, you specify "what the user just did" by `dispatching "actions"` from your event handlers*
+
+```javascript
+function tasksReducer(tasks, action) {
+  if (action.type === 'added') {
+    return [
+      ...tasks,
+      {
+        id: action.id,
+        text: action.text,
+        done: false,
+      },
+    ];
+  } else if (action.type === 'changed') {
+    return tasks.map((t) => {
+      if (t.id === action.task.id) {
+        return action.task;
+      } else {
+        return t;
+      }
+    });
+  } else if (action.type === 'deleted') {
+    return tasks.filter((t) => t.id !== action.id);
+  } else {
+    throw Error('Unknown action: ' + action.type);
+  }
+}
+```
+
+Because the reducer function takes state (`tasks`) as an argument, you can **declare it outside of your component**. This decreases the indentation level and can make your code easier to read.
+
+The code above uses if/else statements, but it's a convention to use `switch statements` inside reducers. The result is the same, but it can be easier to read switch statements at a glance.
+
+We recommend wrapping each `case` block into the `{` and `}` curly braces so that variables declared inside of different `case`s don't clash with each other. Also, a `case` should usually end with a `return`. If you forget to `return`, the code will "fall through" to the next `case`, which can lead to mistakes!
+
++ You need to hook up the reducer to your component
+```javascript
+import { useReducer } from 'react';
+
+const [tasksm dispatch] = useReducer(tasksReducer, initialTasks);
+```
+
++ With reducers, the event handlers only specify *what happened* by dispatching actions, and the reducer function determines *how the state updates* in response to them.
++ **Reducers must be pure**, so they shouldn't mutate state. They shouldn't send requests, schedule timeouts, or perfom any side effects (operations that impact things outside the component). They should update objects and arrays without mutations.
++ **Each action describes a single user interaction, even if that leads to multiple changes in the data**.
+---
+
+
 
 ---
  _All the information written and images shown above are taken from [React.dev](https://react.dev/learn) -> **Learn React**_
