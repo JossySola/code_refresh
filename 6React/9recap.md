@@ -264,16 +264,16 @@ function submitForm(answer) {
   3. **Use** the reducer from your component.
 
 | State | Event handler |
-| --------------------- |
-| tasks, setTasks | handleChangeTask(*logic using setTasks*) |
+| ------|-------------- |
+| tasks, setTasks *(inside component)* | handleChangeTask(*logic using setTasks*) |
 |       | handleDeleteTask(*logic using setTasks*) |
 |       | handleAddTask(*logic using setTasks*) |
 
 *Your event handlers currently specify **what to do** by setting state*
 
 | Reducer | Event handler |
-| ----------------------- |
-| reducer(state, action) git | handleChangeTask(*dispatch action object*)|
+| --------|-------------- |
+| reducer(state, action) *(external function)* | handleChangeTask(*dispatch action object*)|
 | | handleDeleteTask(*dispatch action object*) |
 | | handleAddTask(*dispatch action object*) |
 
