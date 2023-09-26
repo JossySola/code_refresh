@@ -263,7 +263,7 @@ function submitForm(answer) {
   2. **Write** a reducer function.
   3. **Use** the reducer from your component.
 
-| State | Event handler |
+| ==State== | Event handler |
 | ------|-------------- |
 | tasks, setTasks *(inside component)* | handleChangeTask(*logic using setTasks*) |
 |       | handleDeleteTask(*logic using setTasks*) |
@@ -271,7 +271,7 @@ function submitForm(answer) {
 
 *Your event handlers currently specify **what to do** by setting state*
 
-| Reducer | Event handler |
+| ==Reducer== | Event handler |
 | --------|-------------- |
 | reducer(state, action) *(external function)* | handleChangeTask(*dispatch action object*)|
 | | handleDeleteTask(*dispatch action object*) |
