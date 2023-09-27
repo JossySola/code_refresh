@@ -115,7 +115,7 @@
 | **IMPERATIVE** | **DECLARATIVE** |
 | -------------- | --------------- |
 | Exact instructions to manipulate the UI depending on user actions. It's *imperative* because you have to "command" each element, telling the computer *how* to update the UI. | You **declare what you want to show**, and React figures out how to update the UI. |
-| <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the button **become disabled**, and a spinner **appears**.</li><If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
+| <ol><li>When you type something into the form, then "Submit" button **becomes enabled**.</li><li>When you press "Submit", both the form and the button **become disabled**, and a spinner **appears**.</li>If the network request succeeds, the form **gets hidden**, and the "Thank you" message **appears**.</li><li>If the network request fails, an error message **appears**, and the form **becomes enabled** again.</li></ol> | <ul><li>**Empty**: Form has a disabled "Submit" button.</li><li>**Typing**: Form has an enabled "Submit" button.</li><li>**Submitting**: Form is completely disabled. Spinner is shown.</li><li>**Success**: "Thank you" message is shown instead of a form</li><li>**Error**: Same as Typing state, but with an extra error message.</li></ul> |
 + **Thinking about UI declaratively**
     1. **Identify** your component's different visual states
     2. **Determine** what triggers those state changes
@@ -324,7 +324,57 @@ const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
 + **Each action describes a single user interaction, even if that leads to multiple changes in the data**.
 ---
 
++ Passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop. The nearest common ancestor could be far removed from the components that need data, and **lifting state up** that high can lead to a situation called `prop drilling`.
++ Context lets a parent component provide data to the entire tree below it.
+  1. **Create** a context.
+  ```javascript
+  import { createContext } from 'react';
+  export const LevelContext = createContext(1);
+  ```
+  2. **Use** that context from the component that needs the data.
+  ```javascript
+  import { useContext } from 'react';
+  import { LevelContext } from './LevelContext.js';
 
+  export default function Heading({ children }) {
+    const level = useContext(LevelContext);
+    // ...
+  }
+  ```
+  3. **Provide** the context from the component that specifies the data.
+  ```javascript
+  export default function Section({ level, children }) {
+    return (
+      <section className="section">
+        <LevelContext.Provider value={level}>
+          {children}
+        </LevelContext.Provider>
+      </section>
+    );
+  }
+
+  export default function Page() {
+    return (
+      <Section level={1}>
+        <Heading>Title</Heading>
+      </Section>
+    );
+  }
+  ```
+
++ Since context lets you read information from a component above, each `Section` could read the level from the `Section` above, and pass `level + 1` down automatically.
+```javascript
+export default function Section({ children }) {
+  const level = useContext(LevelContext);
+  return (
+    <section className="section">
+      <LevelContext.Provider value={level + 1}>
+        {children}
+      </LevelContext.Provider>
+    </section>
+  );
+}
+```
 
 ---
  _All the information written and images shown above are taken from [React.dev](https://react.dev/learn) -> **Learn React**_
