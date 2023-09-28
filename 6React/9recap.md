@@ -362,7 +362,22 @@ const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
   }
   ```
 
-+ Since context lets you read information from a component above, each `Section` could read the level from the `Section` above, and pass `level + 1` down automatically.
+### Using and providing context from the same component
+
+Using the steps above we still have to specify each section's `level` manually:
+
+```javascript
+export default function Page() {
+  return (
+    <Section level={1}>
+      ...
+      <Section level={2}>
+        ...
+        <Section level={3}>
+          ...
+```
+Since context **lets you read information from a component above**, each `Section` could read the `level` from the `Section` above, and pass `level + 1` down automatically.
+
 ```javascript
 export default function Section({ children }) {
   const level = useContext(LevelContext);
@@ -374,7 +389,49 @@ export default function Section({ children }) {
     </section>
   );
 }
+
+export default function Page() {
+  return (
+    <Section>
+      <Heading>Title</Heading>
+      <Section>
+        <Heading>Heading</Heading>
+        <Heading>Heading</Heading>
+        ...
+  )
+}
 ```
+### Context passes through intermediate componets
+
+You can insert as many components as you like between the component that provides context and the one that uses it.
+
++ **Context lets you write components that "adapt to their surroundings" and display themselves differently depending on *where* (or, in other words, *in which context*) they are being rendered.**
+
+How context works might remind you of `CSS property inheritance`. In CSS, you can specify `color: blue` for a `<div>`, and any DOM node inside of it, no matter how deep, will inherit that color unless some other DOM node in the middle overrides it with `color: green`. Similarly, in React, the only way to override some context coming from above is to wrap children into a context provider with a different value.
+
+In CSS, different properties don't override each other. Similarly, **different React contexts don't override each other**. One component may use or provide many different contexts without a problem.
+
+Here's a few alternatives you should consider **before using context**:
+
+1. **Start by passing props**. If your components are not trivial, it's not unusual to pass a dozen props down through dozen components. It may feel like a slog, but it makes it very clear which components use which data! The person maintaining your code will be glad you've made the data flow explicit with props.
+2. **Extract components and pass JSX as children to them**. If you pass some data through many layers of intermediate components that don't use that data, this often means that you forgot to extract some components along the way. For example, maybe you pass data props like `posts` to visual components that don't use them directly, like `<Layout posts={posts} />`. Instead, make `Layout` take `children` as a prop, and render `<Layout><Posts posts={posts} /></Layout>`. This reduces the number of layers between the component specifying the data and the one that needs it.
+
+#### Uses cases for context
+
++ **Theming**: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
++ **Current account**: Many components might need to know the currently logged in user. Some apps also let you operate multiple accounts at the same time. In those cases, it can be convenient to weap a part of the UI into a nested provider with a different current account value.
++ **Routing**: Most routing solutions use context internally to hold the current route. This is how every link "knows" wheter it's active or not. If you build your own router, you might want to do it too.
++ **Managing state**. As your app grows, you might end up with a lot of state closer to the top of your app. Many distant components below may want to change it. It is common to use a reducer together with context to manage complex state and pass it down to distant components without too much hassle.
+  + Context is not limited to static values. If you pass a different value on the next render, React will update all the components reading it below!
+---
+
++ Reducers let you consolidate a component's state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.
++ **A reducer helps keep the event handlers short and concise**. However, as your app grows, you might run into another difficulty. **Currently, the `tasks` state and the `dispatch` function are only available in the top-level `TaskApp` component**. To let other components read the list of tasks or change it, you have to explicitly pass down the current state and the event handlers that change it as props.
++ Combine a reducer with context:
+  1. **Create** the context.
+  2. **Put** state and dispatch into context.
+  3. **Use** context anywhere in the tree.
+ 
 
 ---
  _All the information written and images shown above are taken from [React.dev](https://react.dev/learn) -> **Learn React**_
