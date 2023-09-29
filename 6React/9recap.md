@@ -416,7 +416,7 @@ Here's a few alternatives you should consider **before using context**:
 1. **Start by passing props**. If your components are not trivial, it's not unusual to pass a dozen props down through dozen components. It may feel like a slog, but it makes it very clear which components use which data! The person maintaining your code will be glad you've made the data flow explicit with props.
 2. **Extract components and pass JSX as children to them**. If you pass some data through many layers of intermediate components that don't use that data, this often means that you forgot to extract some components along the way. For example, maybe you pass data props like `posts` to visual components that don't use them directly, like `<Layout posts={posts} />`. Instead, make `Layout` take `children` as a prop, and render `<Layout><Posts posts={posts} /></Layout>`. This reduces the number of layers between the component specifying the data and the one that needs it.
 
-#### Uses cases for context
+#### Use cases for context
 
 + **Theming**: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
 + **Current account**: Many components might need to know the currently logged in user. Some apps also let you operate multiple accounts at the same time. In those cases, it can be convenient to weap a part of the UI into a nested provider with a different current account value.
@@ -429,8 +429,72 @@ Here's a few alternatives you should consider **before using context**:
 + **A reducer helps keep the event handlers short and concise**. However, as your app grows, you might run into another difficulty. **Currently, the `tasks` state and the `dispatch` function are only available in the top-level `TaskApp` component**. To let other components read the list of tasks or change it, you have to explicitly pass down the current state and the event handlers that change it as props.
 + Combine a reducer with context:
   1. **Create** the context.
+  ```javascript
+  export const TasksContext = createContext(null);
+  export const TaskDispatchContext = createContext(null);
+  ```
+
   2. **Put** state and dispatch into context.
+  ```javascript
+  export default function TaskApp() {
+    const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+    // ...
+    return (
+      <TasksContext.Provider value={tasks}>
+        <TasksDispatchContext.Provider value={dispatch}>
+          ...
+        </TasksDispatchContext.Provider>
+      </TasksContext.Provider>
+    );
+  }
+  ```
+
   3. **Use** context anywhere in the tree.
+    + Any component that needs the task list can read it from the `TasksContext`:
+    ```javascript
+    export default function TaskList() {
+      const tasks = useContext(TasksContext);
+      // ...
+    }
+    ```
+    + To update the task list, any component can read the `dispatch` function from context and call it:
+    ```javascript
+    export default function AddTask() {
+    const [text, setText] = useState('');
+    const dispatch = useContext(TasksDispatchContext);
+    // ...
+    return (
+      // ...
+      <button onClick={() => {
+        setText('');
+        dispatch({
+          type: 'added',
+          id: nextId++,
+          text: text,
+        });
+      }}>Add</button>
+      // ...
+    ```
+
++ You could further declutter the components by moving both reducer and context into a single file. You'll remove the reducer into the context file. Then you'll declare a new `TasksProvider` component in the same file. This component will tie all the pieces together:
+  1. It will manage the state with a reducer.
+  2. It will provide both contexts to components below.
+  3. It will take `children` as a prop so you can pass JSX to it.
++ Functions like `useTasks` and `useTasksDispatch` are called `Custom Hooks`. Your function is considered a custom Hook if its name starts with `use`. This lets you use other Hooks, like `useContext`, inside it.
+
+#### Re-Recap Reducer/Context
+
+> + You can combine reducer with context to let any component read and update state above it.
+> + To provide state and the dispatch function to components below:
+>   1. Create two contexts (for state and for dispatch functions).
+>   2. Provide both contexts from the component that uses the reducer.
+>   3. Use either context from components that need to read them.
+> + You can further declutter the components by moving all wiring into one file.
+>   + You can export a component like `TasksProvider` that provides context.
+>   + You can also export custom Hooks like `useTasks` and `useTasksDispatch` to read it.
+---
+
+## Escape Hatches
  
 
 ---
